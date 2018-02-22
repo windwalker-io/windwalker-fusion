@@ -23,7 +23,7 @@ class CssProcessor extends Processor {
 
   process(dest = null) {
     const options = this.options;
-    let merge = dest !== null && (dest.slice(-1) !== '/' || fs.lstatSync(dest).isDirectory());
+    let merge = dest !== null && (dest.slice(-1) !== '/' || !fs.lstatSync(dest).isDirectory());
     let destFile;
     let destPath;
 
@@ -31,7 +31,10 @@ class CssProcessor extends Processor {
       destFile = path.basename(dest);
       destPath = path.dirname(dest);
     } else if (dest === null) {
-      destPath = file => file.base;
+      destPath = file => {
+        console.log(file, file.base);
+        return file.base;
+      }
     } else {
       destPath = dest;
     }

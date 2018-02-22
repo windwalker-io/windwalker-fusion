@@ -18,13 +18,16 @@ const log = util.log;
 const filter = require('gulp-filter');
 const path = require('path');
 const concat = require('gulp-concat');
+const EventEmitter = require('events');
+const input = require('minimist')(process.argv.slice(2));
 
 const SassProcessor = require('./processor/SassProcessor');
 const LessProcessor = require('./processor/LessProcessor');
 
+const watches = [];
+
 class Fusion {
-  constructor() {
-  }
+  static get watches() { return watches }
 
   static less(source, dest = null, options = {}) {
     return new LessProcessor(source, options).process(dest);
@@ -47,11 +50,19 @@ class Fusion {
   }
 
   static watch(glob, opt, fn) {
+    if (arguments.length === 1) {
+      if (!this.watches[gulp.currentTask.name] && input['watch']) {
+        this.watches[gulp.currentTask.name] = glob;
+        return gulp.watch(glob, [gulp.currentTask.name]);
+      }
+
+      return new EventEmitter();
+    }
+
     return gulp.watch(glob, opt, fn);
   }
 
   static run(defaultTasks = ['main']) {
-    console.log('Hello');
     gulp.task('default', defaultTasks);
   }
 }

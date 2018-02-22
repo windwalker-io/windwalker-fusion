@@ -1,1 +1,0 @@
-{"version":3,"sources":["flower.less","flower.css"],"names":[],"mappings":"AAGA;EACA,WAAA;CCFC","file":"flower.css","sourcesContent":["\r\n@import \"variables\";\r\n\r\n.test {\r\n  color: @color;\r\n}\r\n",".test {\n  color: red;\n}\n"]}

@@ -1,1 +1,0 @@
-{"version":3,"sources":["hello.scss","variables.scss","yoo.scss"],"names":[],"mappings":"AAGA;EACA,WCHW,EDIX;;AEJA;EACA,cAAA,EACA","file":"hello.css","sourcesContent":["\r\n@import \"variables\";\r\n\r\n.test {\r\n  color: $color;\r\n}\r\n","\r\n$color: red;\r\n","\r\n.yoo {\r\n  color: yellow;\r\n}\r\n"]}
