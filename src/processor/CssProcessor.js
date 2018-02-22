@@ -31,10 +31,7 @@ class CssProcessor extends Processor {
       destFile = path.basename(dest);
       destPath = path.dirname(dest);
     } else if (dest === null) {
-      destPath = file => {
-        console.log(file, file.base);
-        return file.base;
-      }
+      destPath = file => file.base;
     } else {
       destPath = dest;
     }
@@ -61,7 +58,7 @@ class CssProcessor extends Processor {
       .pipe(filter('**/*.css'))
       .pipe(rename({suffix: '.min'}));
 
-    if (options.autoprefixer) {
+    if (options.minify) {
       this.pipe(minifycss());
     }
 

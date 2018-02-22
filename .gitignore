@@ -3,6 +3,6 @@ node_modules
 
 # Test
 #/fusion.js
-test/*.css
-test/*.min.js
-test/*.map
+test/**/*.css
+test/**/*.min.js
+test/**/*.map

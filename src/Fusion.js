@@ -23,11 +23,33 @@ const input = require('minimist')(process.argv.slice(2));
 
 const SassProcessor = require('./processor/SassProcessor');
 const LessProcessor = require('./processor/LessProcessor');
+const JsProcessor = require('./processor/JsProcessor');
+const BabelProcessor = require('./processor/BabelProcessor');
 
 const watches = [];
 
 class Fusion {
   static get watches() { return watches }
+
+  static js(source, dest = null, options = {}) {
+    if (typeof source === 'string') {
+      source = [source];
+    }
+
+    source.push('!./**/*.min.js');
+
+    return new JsProcessor(source, options).process(dest);
+  }
+
+  static babel(source, dest = null, options = {}) {
+    if (typeof source === 'string') {
+      source = [source];
+    }
+
+    source.push('!./**/*.min.js');
+
+    return new BabelProcessor(source, options).process(dest);
+  }
 
   static less(source, dest = null, options = {}) {
     return new LessProcessor(source, options).process(dest);
