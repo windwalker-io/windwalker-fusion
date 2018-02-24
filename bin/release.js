@@ -38,7 +38,9 @@ fs.writeFileSync(__dirname + '/../package.json', JSON.stringify(pjson, null, 2))
 console.log('>> Push to git');
 
 exec(`git checkout ${branch}`);
-exec(`git commit -am "Prepare ${version} release."`);
+exec(`git commit -am "Prepare ${version} release."`, function(error, stdout, stderr) {
+
+});
 exec(`git push origin ${branch}`);
 exec(`git checkout master`);
 
