@@ -5,24 +5,30 @@
  * @license    __LICENSE__
  */
 
-const Processor = require('./Processor');
 const gulp = require('gulp');
 const autoprefixer = require('gulp-autoprefixer');
 const minifycss = require('gulp-minify-css');
 const rename = require('gulp-rename');
+const sourcemaps = require('gulp-sourcemaps');
 const filter = require('gulp-filter');
 const concat = require('gulp-concat');
-const rebase = require('gulp-css-url-rebase');
 const merge = require('lodash.merge');
-const config = require('../config');
+const rebase = require('gulp-css-url-rebase');
 
-class CssProcessor extends Processor {
+const Processor = require('./Processor');
+
+class CssPreProcessor extends Processor {
   prepareOptions(options) {
     return merge({}, {
+      sourcemap: true,
       autoprefixer: true,
       minify: true,
       rebase: true
     }, options);
+  }
+
+  compile() {
+    //
   }
 
   doProcess(dest, options) {
@@ -30,12 +36,22 @@ class CssProcessor extends Processor {
       this.pipe(rebase({ root: dest.path }));
     }
 
+    if (options.sourcemap) {
+      this.pipe(sourcemaps.init());
+    }
+
     if (dest.merge) {
       this.pipe(concat(dest.file));
     }
 
+    this.compile();
+
     if (options.autoprefixer) {
-      this.pipe(autoprefixer("last 3 version", "safari 5", "ie 9-11"));
+      this.pipe(autoprefixer("last 3 version", "safari 5", "ie 8", "ie 9"));
+    }
+
+    if (options.sourcemap) {
+      this.pipe(sourcemaps.write('.'));
     }
 
     this.pipe(gulp.dest(dest.path))
@@ -50,4 +66,4 @@ class CssProcessor extends Processor {
   }
 }
 
-module.exports = CssProcessor;
+module.exports = CssPreProcessor;

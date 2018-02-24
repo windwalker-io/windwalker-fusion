@@ -6,30 +6,25 @@
  */
 
 const gulp = require('gulp');
-const util = require("gulp-util");
-const less = require("gulp-less");
-const sass = require("gulp-sass");
-const autoprefixer = require('gulp-autoprefixer');
-const minifycss = require('gulp-minify-css');
-const uglify = require('gulp-uglify');
-const rename = require('gulp-rename');
-const sourcemaps = require('gulp-sourcemaps');
-const log = util.log;
-const filter = require('gulp-filter');
-const path = require('path');
-const concat = require('gulp-concat');
 const EventEmitter = require('events');
 const input = require('minimist')(process.argv.slice(2));
+const config = require('./config');
 
 const SassProcessor = require('./processor/SassProcessor');
 const LessProcessor = require('./processor/LessProcessor');
 const JsProcessor = require('./processor/JsProcessor');
 const BabelProcessor = require('./processor/BabelProcessor');
+const CssProcessor = require("./processor/CssProcessor");
 
 const watches = [];
 
 class Fusion {
   static get watches() { return watches }
+  static get public() { return config.public }
+
+  static setPublicPath(val) {
+    config.public = val;
+  }
 
   static js(source, dest = null, options = {}) {
     if (typeof source === 'string') {
@@ -49,6 +44,10 @@ class Fusion {
     source.push('!./**/*.min.js');
 
     return new BabelProcessor(source, options).process(dest);
+  }
+
+  static css(source, dest = null, options = {}) {
+    return new CssProcessor(source, options).process(dest);
   }
 
   static less(source, dest = null, options = {}) {

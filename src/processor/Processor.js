@@ -6,6 +6,7 @@
  */
 
 const gulp = require('gulp');
+const Utilities = require("../Utilities");
 
 class Processor {
   constructor(source, options = {}) {
@@ -20,6 +21,21 @@ class Processor {
   }
 
   process(dest = null) {
+    const options = this.options;
+    dest = Utilities.extractDest(dest);
+
+    this.doProcess(dest, options);
+
+    return this.stream;
+  }
+
+  /**
+   * Do process.
+   *
+   * @param dest    {{merge: string, file: string, path: string}}
+   * @param options {object}
+   */
+  doProcess(dest, options) {
     throw new Error('Please extends this method.');
   }
 

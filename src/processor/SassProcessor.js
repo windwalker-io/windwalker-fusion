@@ -5,10 +5,10 @@
  * @license    __LICENSE__
  */
 
-const CssProcessor = require('./CssProcessor');
+const CssPreProcessor = require('./CssPreProcessor');
 const sass = require('gulp-sass');
 
-class SassProcessor extends CssProcessor {
+class SassProcessor extends CssPreProcessor {
   compile() {
     this.pipe(sass({ style: 'expanded' }));
   }

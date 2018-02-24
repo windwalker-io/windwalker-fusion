@@ -11,28 +11,22 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 const filter = require('gulp-filter');
-const path = require('path');
 const concat = require('gulp-concat');
-const fs = require('fs');
-const Utilities = require('../Utilities');
+const merge = require('lodash.merge');
 
 class JsProcessor extends Processor {
-  constructor(source, options = {}) {
-    if (typeof source === 'string') {
-      source = [source];
-    }
-
-    super(source, options);
+  prepareOptions(options) {
+    return merge({}, {
+      sourcemap: true,
+      minify: true
+    }, options);
   }
 
   compile() {
     //
   }
 
-  process(dest = null) {
-    const options = this.options;
-    dest = Utilities.extractDest(dest);
-
+  doProcess(dest, options) {
     if (options.sourcemap) {
       this.pipe(sourcemaps.init());
     }
@@ -60,15 +54,6 @@ class JsProcessor extends Processor {
     }
 
     this.pipe(gulp.dest(dest.path));
-
-    return this.stream;
-  }
-
-  prepareOptions(options) {
-    return Object.assign({}, {
-      sourcemap: true,
-      minify: true
-    }, options);
   }
 }
 

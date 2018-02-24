@@ -5,10 +5,10 @@
  * @license    __LICENSE__
  */
 
-const CssProcessor = require('./CssProcessor');
+const CssPreProcessor = require('./CssPreProcessor');
 const less = require('gulp-less');
 
-class LessProcessor extends CssProcessor {
+class LessProcessor extends CssPreProcessor {
   compile() {
     this.pipe(less());
   }
