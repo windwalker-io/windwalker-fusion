@@ -21,4 +21,4 @@ fusion.task('main', () => {
   //fusion.less('test/less/flower.less');
 });
 
-fusion.run(['main']);
+fusion.default(['main']);

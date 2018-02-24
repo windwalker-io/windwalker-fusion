@@ -36,8 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 /**
  * Part of fusion project.
  *
- * @copyright  Copyright (C) 2018 ${ORGANIZATION}.
- * @license    __LICENSE__
+ * @copyright  Copyright (C) 2018 Asikart.
+ * @license    MIT
  */
 define("greeter", ["require", "exports"], function (require, exports) {
     "use strict";
@@ -64,8 +64,8 @@ define("greeter", ["require", "exports"], function (require, exports) {
 /**
  * Part of fusion project.
  *
- * @copyright  Copyright (C) 2018 ${ORGANIZATION}.
- * @license    __LICENSE__
+ * @copyright  Copyright (C) 2018 Asikart.
+ * @license    MIT
  */
 define("sunflower", ["require", "exports", "greeter"], function (require, exports, greeter_1) {
     "use strict";

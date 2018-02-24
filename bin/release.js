@@ -1,8 +1,8 @@
 /**
  * Part of fusion project.
  *
- * @copyright  Copyright (C) 2018 ${ORGANIZATION}.
- * @license    __LICENSE__
+ * @copyright  Copyright (C) 2018 Asikart.
+ * @license    MIT
  */
 
 const input = require('minimist')(process.argv.slice(2));
@@ -38,9 +38,7 @@ fs.writeFileSync(__dirname + '/../package.json', JSON.stringify(pjson, null, 2))
 console.log('>> Push to git');
 
 exec(`git checkout ${branch}`);
-exec(`git commit -am "Prepare ${version} release."`, function(error, stdout, stderr) {
-
-});
+exec(`git commit -am "Prepare ${version} release."`, () => {});
 exec(`git push origin ${branch}`);
 exec(`git checkout master`);
 

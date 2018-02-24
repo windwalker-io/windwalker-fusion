@@ -5,8 +5,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /**
  * Part of fusion project.
  *
- * @copyright  Copyright (C) 2018 ${ORGANIZATION}.
- * @license    __LICENSE__
+ * @copyright  Copyright (C) 2018 Asikart.
+ * @license    MIT
  */
 
 (function ($) {
@@ -34,8 +34,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /**
  * Part of fusion project.
  *
- * @copyright  Copyright (C) 2018 ${ORGANIZATION}.
- * @license    __LICENSE__
+ * @copyright  Copyright (C) 2018 Asikart.
+ * @license    MIT
  */
 
 // "use strict";
@@ -96,8 +96,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /**
  * Part of fusion project.
  *
- * @copyright  Copyright (C) 2018 ${ORGANIZATION}.
- * @license    __LICENSE__
+ * @copyright  Copyright (C) 2018 Asikart.
+ * @license    MIT
  */
 
 (function () {

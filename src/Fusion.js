@@ -1,8 +1,8 @@
 /**
  * Part of fusion project.
  *
- * @copyright  Copyright (C) 2018 ${ORGANIZATION}.
- * @license    __LICENSE__
+ * @copyright  Copyright (C) 2018 Asikart.
+ * @license    MIT
  */
 
 const config = require('./config');
@@ -43,6 +43,10 @@ class Fusion {
 
   static ts(source, dest = null, options = {}) {
     return new TsProcessor(source, options).process(dest);
+  }
+
+  static typeScript(source, dest = null, options = {}) {
+    return this.ts(source, dest, options);
   }
 
   static css(source, dest = null, options = {}) {
@@ -120,7 +124,7 @@ class Fusion {
     config.notify = true;
   }
 
-  static run(defaultTasks = ['main']) {
+  static default(defaultTasks = ['main']) {
     gulp.task('default', defaultTasks);
   }
 
