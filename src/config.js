@@ -8,5 +8,9 @@
 module.exports = {
   public: '.',
   notify: true,
-  notifySuccess: true
+  notifySuccess: true,
+  livereload: {
+    host: null,
+    port: null
+  }
 };

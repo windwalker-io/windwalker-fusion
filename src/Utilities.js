@@ -60,7 +60,7 @@ class Utilities {
   }
 
   static postStream(stream) {
-    stream = stream.pipe(livereload());
+    stream = stream.pipe(livereload(config.livereload));
 
     return stream;
   }

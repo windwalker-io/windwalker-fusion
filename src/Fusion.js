@@ -12,6 +12,7 @@ const gulp = require('gulp');
 const input = require('minimist')(process.argv.slice(2));
 const livereload = require('gulp-livereload');
 const notifier = require('node-notifier');
+const Utilities = require("./Utilities");
 
 const SassProcessor = require('./processor/SassProcessor');
 const LessProcessor = require('./processor/LessProcessor');
@@ -126,7 +127,7 @@ class Fusion {
           startWatching = true;
 
           if (input['livereload']) {
-            livereload.listen();
+            livereload.listen(config.livereload);
           }
 
           for (let watch of this.watches) {

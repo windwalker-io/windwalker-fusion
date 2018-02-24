@@ -6,7 +6,7 @@ fusion.setPublicPath('test');
 fusion.task('main', () => {
   // fusion.watch('test/scss/**/*.scss');
   // fusion.watch('test/less/**/*.less');
-  // fusion.watch('test/es6/**/*.js');
+  fusion.watch('test/es6/**/*.js');
   // fusion.watch('test/ts/**/*.ts');
   fusion.watch('test/src/**/*.css');
   //
