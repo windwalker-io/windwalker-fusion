@@ -17,11 +17,11 @@ class Processor {
       source = [source];
     }
 
-    this.stream = this.createStream(source, this.options);
+    this.stream = Utilities.prepareStream(this.createStream(source, this.options));
   }
 
   createStream(source, options) {
-    return Utilities.prepareStream(gulp.src(source));
+    return gulp.src(source);
   }
 
   process(dest = null) {
