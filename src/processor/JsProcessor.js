@@ -53,8 +53,7 @@ class JsProcessor extends Processor {
       this.pipe(gulp.dest(dest.path));
     }
 
-    this
-      .pipe(filter('**/*.js'));
+    this.pipe(filter('**/*.js'));
 
     if (options.minify) {
       this.pipe(rename({suffix: '.min'}))

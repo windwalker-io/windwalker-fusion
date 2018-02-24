@@ -17,7 +17,7 @@ class Processor {
       source = [source];
     }
 
-    this.stream = this.createStream(source, options);
+    this.stream = this.createStream(source, this.options);
   }
 
   createStream(source, options) {
@@ -36,7 +36,7 @@ class Processor {
   /**
    * Do process.
    *
-   * @param dest    {{merge: string, file: string, path: string}}
+   * @param dest    {{merge: string, file: string, path: string, samePosition: boolean}}
    * @param options {object}
    */
   doProcess(dest, options) {

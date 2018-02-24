@@ -9,6 +9,7 @@ const path = require('path');
 const config = require('./config');
 const livereload = require('gulp-livereload');
 const notify = require('gulp-notify');
+const debounce = require('lodash.debounce');
 const fs = require('fs');
 
 class Utilities {
@@ -16,18 +17,21 @@ class Utilities {
     let merge = dest !== null && (dest.slice(-1) !== '/' || !fs.lstatSync(dest).isDirectory());
     let destFile;
     let destPath;
+    let samePosition = false;
 
     if (merge) {
       destFile = path.basename(dest);
       destPath = path.dirname(dest);
     } else if (dest === null) {
       destPath = file => file.base;
+      samePosition = true;
     } else {
       destPath = dest;
     }
 
     return {
-      merge: merge,
+      merge,
+      samePosition,
       file: destFile,
       path: destPath
     }
@@ -35,15 +39,6 @@ class Utilities {
 
   static postStream(stream) {
     stream = stream.pipe(livereload());
-
-    if (config.notify) {
-      stream.pipe(notify({
-        title: 'Build success.',
-        message: 'File: <%= file.relative %>',
-        icon: __dirname + '/../resources/img/windwalker.png'
-      }));
-    }
-
     return stream;
   }
 }

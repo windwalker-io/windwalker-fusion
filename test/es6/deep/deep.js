@@ -8,8 +8,7 @@
 (async ($) => {
   const a = 'b';
 
-  const result = await $.get('./');
-
+  const result2 = await $.get('./');
 
   console.log(a, 'foo');
 })(jQuery);

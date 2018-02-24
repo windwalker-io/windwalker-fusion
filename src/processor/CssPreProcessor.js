@@ -32,10 +32,6 @@ class CssPreProcessor extends Processor {
   }
 
   doProcess(dest, options) {
-    if (options.rebase) {
-      this.pipe(rebase({ root: dest.path }));
-    }
-
     if (options.sourcemap) {
       this.pipe(sourcemaps.init());
     }
@@ -45,6 +41,12 @@ class CssPreProcessor extends Processor {
     }
 
     this.compile();
+
+    if (options.rebase && !dest.samePosition) {
+      this.pipe(rebase({
+        root: dest.path
+      }));
+    }
 
     if (options.autoprefixer) {
       this.pipe(autoprefixer("last 3 version", "safari 5", "ie 8", "ie 9"));
