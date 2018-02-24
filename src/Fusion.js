@@ -23,6 +23,7 @@ const TsProcessor = require("./processor/TsProcessor");
 const watches = [];
 let startWatching = false;
 let promises = [];
+let notify;
 
 class Fusion {
   static get watches() { return watches }
@@ -77,30 +78,7 @@ class Fusion {
   }
 
   static task(name, deps, fn) {
-    let handlerIndex;
-
-    if (typeof arguments[1] === 'function') {
-      handlerIndex = 1;
-    } else if (typeof arguments[2] === 'function') {
-      handlerIndex = 2;
-    }
-
-    if (handlerIndex) {
-      const handler = arguments[handlerIndex];
-
-      arguments[handlerIndex] = (cb) => {
-        const promise = new Promise((resolve) => {
-          handler(resolve, cb);
-
-          resolve();
-          cb();
-        });
-
-        this.postTask(promise);
-      };
-    }
-
-    return gulp.task(...arguments);
+    return gulp.task(name, deps, fn);
   }
 
   static watch(glob, opt, fn) {
@@ -131,37 +109,34 @@ class Fusion {
     gulp.task('default', defaultTasks);
   }
 
-  static postTask(promise) {
-    this.promises.push(promise);
-
-    // TODO: Rewrite for Gulp 4 to wait finish.
-    debounce(() => {
-      Promise.all(this.promises)
-        .then(() => {
+  static postTask() {
+    if (!notify) {
+      notify = debounce(() => {
+        if (config.notifySuccess) {
           notifier.notify({
             title: 'Windwalker Fusion',
             message: 'Build success',
             icon: __dirname + '/../resources/img/windwalker.png',
           });
+        }
 
-          if (startWatching === false) {
-            startWatching = true;
+        config.notifySuccess = true;
 
-            if (input['livereload']) {
-              livereload.listen();
-            }
+        if (startWatching === false) {
+          startWatching = true;
 
-            for (let watch of this.watches) {
-              gulp.watch(watch.glob, [watch.task]);
-            }
+          if (input['livereload']) {
+            livereload.listen();
           }
-        })
-        .catch(error => {
-          console.error(error);
-        });
 
-      promises = [];
-    }, 100)();
+          for (let watch of this.watches) {
+            gulp.watch(watch.glob, [watch.task]);
+          }
+        }
+      }, 300);
+    }
+
+    return notify;
   }
 }
 

@@ -39,7 +39,9 @@ console.log('>> Push to git');
 
 exec(`git checkout ${branch}`);
 exec(`git commit -am "Prepare ${version} release."`, () => {});
+exec(`git tag ${version} -f`);
 exec(`git push origin ${branch}`);
+exec(`git push origin --tags`);
 exec(`git checkout master`);
 
 console.log('>> Publish to npm');

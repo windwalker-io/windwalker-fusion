@@ -7,9 +7,10 @@
 
 const path = require('path');
 const config = require('./config');
-const plumber = require('gulp-plumber');
 const livereload = require('gulp-livereload');
+const errorHandler = require('gulp-error-handle');
 const gutil = require('gulp-util');
+const notifier = require('node-notifier');
 const chalk = require('chalk');
 const fs = require('fs');
 
@@ -39,15 +40,21 @@ class Utilities {
   }
 
   static prepareStream(stream) {
-    // function swallowError (error) {
-    //   console.log('ERROR', error.toString());
-    //
-    //   this.emit('end');
-    // }
-    //
-    // stream = stream.on('error', e => console.error(e.toString()));
+    const fusion = require('./index');
 
-    // stream = stream.pipe(plumber());
+    stream = stream
+      .pipe(errorHandler((e) => {
+        config.notifySuccess = false;
+
+        notifier.notify({
+          title: 'Windwalker Fusion',
+          message: '[Something Error] Please see terminal to know more information.',
+          icon: __dirname + '/../resources/img/error.png'
+        });
+      }))
+      .on('end', e => {
+        fusion.postTask()();
+      });
 
     return stream;
   }

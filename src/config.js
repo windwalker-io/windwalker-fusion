@@ -7,5 +7,6 @@
 
 module.exports = {
   public: '.',
-  notify: true
+  notify: true,
+  notifySuccess: true
 };
