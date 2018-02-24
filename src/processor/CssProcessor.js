@@ -12,7 +12,6 @@ const minifycss = require('gulp-minify-css');
 const rename = require('gulp-rename');
 const filter = require('gulp-filter');
 const concat = require('gulp-concat');
-const rebase = require('gulp-css-url-rebase');
 const rewriteCSS = require('gulp-rewrite-css');
 const merge = require('lodash.merge');
 const config = require('../config');

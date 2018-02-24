@@ -13,7 +13,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const filter = require('gulp-filter');
 const concat = require('gulp-concat');
 const merge = require('lodash.merge');
-const rebase = require('gulp-css-url-rebase');
+const rewriteCSS = require('gulp-rewrite-css');
 
 const Processor = require('./Processor');
 const Utilities = require("../Utilities");
@@ -44,9 +44,7 @@ class CssPreProcessor extends Processor {
     this.compile();
 
     if (options.rebase && !dest.samePosition) {
-      this.pipe(rebase({
-        root: dest.path
-      }));
+      this.pipe(rewriteCSS({destination: dest.path}));
     }
 
     if (options.autoprefixer) {
