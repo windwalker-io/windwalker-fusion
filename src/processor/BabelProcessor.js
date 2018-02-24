@@ -11,16 +11,14 @@ const merge = require('lodash.merge');
 
 class BabelProcessor extends JsProcessor {
   prepareOptions(options) {
-    return merge({}, {
-      sourcemap: true,
-      minify: true,
+    return merge(super.prepareOptions(options), {
       presets: ['es2015', 'stage-2']
     }, options);
   }
 
-  compile() {
+  compile(dest, options) {
     this.pipe(babel({
-      presets: this.options.presets
+      presets: options.presets
     }));
   }
 }

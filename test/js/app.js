@@ -14,7 +14,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
   var sakura = 'flower';
 
+  function test() {
+    //
+  }
+
   sakura += 123;
+
+  if (sakura) {
+    console.log('Test');
+  }
 
   console.log(sakura, $('rose'));
 })(jQuery);
@@ -26,10 +34,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
  * @license    __LICENSE__
  */
 
+// "use strict";
+
 (function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee($) {
-    "use strict";
-
     var a, result;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {

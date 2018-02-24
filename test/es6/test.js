@@ -5,9 +5,9 @@
  * @license    __LICENSE__
  */
 
-(async ($) => {
-  "use strict";
+// "use strict";
 
+(async ($) => {
   const a = 'b';
 
   const result = await $.get('./');

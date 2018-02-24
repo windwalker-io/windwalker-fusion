@@ -15,6 +15,7 @@ const LessProcessor = require('./processor/LessProcessor');
 const JsProcessor = require('./processor/JsProcessor');
 const BabelProcessor = require('./processor/BabelProcessor');
 const CssProcessor = require("./processor/CssProcessor");
+const TsProcessor = require("./processor/TsProcessor");
 
 const watches = [];
 
@@ -44,6 +45,10 @@ class Fusion {
     source.push('!./**/*.min.js');
 
     return new BabelProcessor(source, options).process(dest);
+  }
+
+  static ts(source, dest = null, options = {}) {
+    return new TsProcessor(source, options).process(dest);
   }
 
   static css(source, dest = null, options = {}) {
