@@ -88,6 +88,14 @@ class Fusion {
     return gulp.watch(glob, opt, fn);
   }
 
+  static disableNotification() {
+    config.notify = false;
+  }
+
+  static enableNotification() {
+    config.notify = true;
+  }
+
   static run(defaultTasks = ['main']) {
     gulp.task('default', defaultTasks);
   }

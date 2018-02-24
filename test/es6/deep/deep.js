@@ -10,5 +10,6 @@
 
   const result = await $.get('./');
 
+
   console.log(a, 'foo');
 })(jQuery);

@@ -6,6 +6,9 @@
  */
 
 const path = require('path');
+const config = require('./config');
+const livereload = require('gulp-livereload');
+const notify = require('gulp-notify');
 const fs = require('fs');
 
 class Utilities {
@@ -28,6 +31,20 @@ class Utilities {
       file: destFile,
       path: destPath
     }
+  }
+
+  static postStream(stream) {
+    stream = stream.pipe(livereload());
+
+    if (config.notify) {
+      stream.pipe(notify({
+        title: 'Build success.',
+        message: 'File: <%= file.relative %>',
+        icon: __dirname + '/../resources/img/windwalker.png'
+      }));
+    }
+
+    return stream;
   }
 }
 
