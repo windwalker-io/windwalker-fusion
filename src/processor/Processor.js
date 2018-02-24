@@ -6,6 +6,7 @@
  */
 
 const gulp = require('gulp');
+const livereload = require('gulp-livereload');
 const Utilities = require("../Utilities");
 
 class Processor {
@@ -17,7 +18,11 @@ class Processor {
       source = [source];
     }
 
-    this.stream = gulp.src(source);
+    this.stream = this.createStream(source, options);
+  }
+
+  createStream(source, options) {
+    return gulp.src(source);
   }
 
   process(dest = null) {
@@ -26,7 +31,7 @@ class Processor {
 
     this.doProcess(dest, options);
 
-    return this.stream;
+    return this.stream.pipe(livereload());
   }
 
   /**

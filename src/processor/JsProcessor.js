@@ -22,6 +22,14 @@ class JsProcessor extends Processor {
     }, options);
   }
 
+  createStream(source, options) {
+    if (options.minify) {
+      source.push('!./**/*.min.js');
+    }
+
+    return gulp.src(source);
+  }
+
   compile(dest, options) {
     //
   }
