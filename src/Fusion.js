@@ -102,7 +102,7 @@ class Fusion {
   static watch(glob, opt, fn) {
     if (arguments.length === 1) {
 
-      if (!this.watches[gulp.currentTask.name] && input['watch']) {
+      if (!startWatching && input['watch']) {
         this.watches[gulp.currentTask.name] = glob;
       }
 
