@@ -74,11 +74,6 @@ define("sunflower", ["require", "exports", "greeter"], function (require, export
     var jQuery = /** @class */ (function () {
         function jQuery() {
         }
-        jQuery.get = function (url) {
-            return new Promise(function (resolve) {
-                return resolve('Hello');
-            });
-        };
         return jQuery;
     }());
     var el = document.getElementById('content');

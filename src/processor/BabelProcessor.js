@@ -8,6 +8,7 @@
 const JsProcessor = require('./JsProcessor');
 const babel = require('gulp-babel');
 const merge = require('lodash.merge');
+const Utilities = require("../Utilities");
 
 class BabelProcessor extends JsProcessor {
   prepareOptions(options) {
@@ -17,9 +18,11 @@ class BabelProcessor extends JsProcessor {
   }
 
   compile(dest, options) {
-    this.pipe(babel({
-      presets: options.presets
-    }));
+    this.pipe(
+      babel({
+        presets: options.presets
+      }).on('error', Utilities.logError(e => console.log(e.codeFrame)))
+    );
   }
 }
 

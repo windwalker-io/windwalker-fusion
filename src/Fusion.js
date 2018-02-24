@@ -63,7 +63,7 @@ class Fusion {
 
   static copy(source, dest, options = {}) {
     return Utilities.postStream(
-      gulp.src(source)
+      Utilities.prepareStream(gulp.src(source))
         .pipe(gulp.dest(dest))
     );
   }
@@ -107,7 +107,10 @@ class Fusion {
     if (arguments.length === 1) {
 
       if (!startWatching && input['watch']) {
-        this.watches[gulp.currentTask.name] = glob;
+        this.watches.push({
+          task: gulp.currentTask.name,
+          glob: glob
+        });
       }
 
       return new EventEmitter();
@@ -148,8 +151,8 @@ class Fusion {
               livereload.listen();
             }
 
-            for (let i in this.watches) {
-              gulp.watch(this.watches[i], [i]);
+            for (let watch of this.watches) {
+              gulp.watch(watch.glob, [watch.task]);
             }
           }
         })

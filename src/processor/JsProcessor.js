@@ -13,6 +13,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const filter = require('gulp-filter');
 const concat = require('gulp-concat');
 const merge = require('lodash.merge');
+const Utilities = require("../Utilities");
 
 class JsProcessor extends Processor {
   prepareOptions(options) {
@@ -56,8 +57,12 @@ class JsProcessor extends Processor {
     this.pipe(filter('**/*.js'));
 
     if (options.minify) {
-      this.pipe(rename({suffix: '.min'}))
-        .pipe(uglify().on('error', e => console.error(e)));
+      this
+        .pipe(uglify().on('error', function(e) {
+          console.error(e.toString());
+          this.emit('end');
+        }))
+        .pipe(rename({suffix: '.min'}));
     }
 
     this.pipe(gulp.dest(dest.path));

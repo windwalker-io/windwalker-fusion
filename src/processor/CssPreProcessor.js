@@ -16,6 +16,7 @@ const merge = require('lodash.merge');
 const rebase = require('gulp-css-url-rebase');
 
 const Processor = require('./Processor');
+const Utilities = require("../Utilities");
 
 class CssPreProcessor extends Processor {
   prepareOptions(options) {
@@ -49,7 +50,7 @@ class CssPreProcessor extends Processor {
     }
 
     if (options.autoprefixer) {
-      this.pipe(autoprefixer("last 3 version", "safari 5", "ie 8", "ie 9"));
+      this.pipe(autoprefixer("last 3 version", "safari 5", "ie 8", "ie 9").on('error', Utilities.logError()));
     }
 
     if (options.sourcemap) {

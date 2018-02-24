@@ -8,7 +8,7 @@
 const fusion = require('windwalker-fusion');
 
 // The task `main`
-fusion.task('main', () => {
+fusion.task('main', function () {
   // Watch start
   fusion.watch('www/asset/**/*.scss');
   // Watch end

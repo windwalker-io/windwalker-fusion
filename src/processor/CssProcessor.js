@@ -13,8 +13,10 @@ const rename = require('gulp-rename');
 const filter = require('gulp-filter');
 const concat = require('gulp-concat');
 const rebase = require('gulp-css-url-rebase');
+const rewriteCSS = require('gulp-rewrite-css');
 const merge = require('lodash.merge');
 const config = require('../config');
+const Utilities = require("../Utilities");
 
 class CssProcessor extends Processor {
   prepareOptions(options) {
@@ -27,7 +29,7 @@ class CssProcessor extends Processor {
 
   doProcess(dest, options) {
     if (options.rebase) {
-      this.pipe(rebase({ root: dest.path }));
+      this.pipe(rewriteCSS({destination: dest.path}));
     }
 
     if (dest.merge) {
@@ -35,7 +37,7 @@ class CssProcessor extends Processor {
     }
 
     if (options.autoprefixer) {
-      this.pipe(autoprefixer("last 3 version", "safari 5", "ie 9-11"));
+      this.pipe(autoprefixer("last 3 version", "safari 5", "ie 9-11").on('error', Utilities.logError()));
     }
 
     this.pipe(gulp.dest(dest.path))
