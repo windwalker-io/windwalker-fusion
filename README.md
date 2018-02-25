@@ -31,7 +31,7 @@ It is very similar to Gulp does.
 Then run:
 
 ```bash
-node node_modules\gulp\bin\gulp.js --gulpfile funsionfile.js
+node node_modules\gulp\bin\gulp.js --gulpfile fusionfile.js
 ```
 
 Gulp will help you compile all `.scss` files to `dist/app.css` and generate below files:
@@ -51,10 +51,10 @@ You can also add some pre-defined script to `package.json` to speed up your work
 
 ```json
   "scripts": {
-    "build": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js --gulpfile funsionfile.js",
-    "watch": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js --gulpfile funsionfile.js --watch",
-    "watch:reload": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js --gulpfile funsionfile.js --watch --livereload",
-    "prod": "cross-env NODE_ENV=production node_modules/gulp/bin/gulp.js --gulpfile funsionfile.js",
+    "build": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js --gulpfile fusionfile.js",
+    "watch": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js --gulpfile fusionfile.js --watch",
+    "watch:reload": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js --gulpfile fusionfile.js --watch --livereload",
+    "prod": "cross-env NODE_ENV=production node_modules/gulp/bin/gulp.js --gulpfile fusionfile.js",
   }
 ```
 
