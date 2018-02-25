@@ -2,7 +2,7 @@ node_modules
 .idea
 
 # Test
-#/fusion.js
+#/fusionfile.js
 test/**/*.css
 test/**/*.min.js
 test/**/*.map

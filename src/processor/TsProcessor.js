@@ -47,7 +47,7 @@ class TsProcessor extends JsProcessor {
       // this.pipe(concat(dest.file));
 
       options.ts.outFile = dest.file;
-      options.ts.module = 'amd';
+      options.ts.module = options.ts.module || 'amd';
     }
 
     this.compile(dest, options);
