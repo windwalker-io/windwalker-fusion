@@ -1,13 +1,15 @@
 # Windwalker Fusion
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm](https://img.shields.io/npm/l/windwalker-fusion.svg)](https://www.npmjs.com/package/windwalker-fusion)
 [![npm](https://img.shields.io/npm/v/windwalker-fusion.svg)](https://www.npmjs.com/package/windwalker-fusion)
-
+[![npm](https://img.shields.io/npm/dt/windwalker-fusion.svg)](https://www.npmjs.com/package/windwalker-fusion)
 
 Windwalker Fusion provides a clean, fluent API for calling Gulp stream ans tasks to compile your code. 
 Fusion supports several common CSS and JavaScript pre-processors.
 
 This project is inspired by [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) but based on [Gulp.js](https://gulpjs.com/).
+
+## TOC
 
 <!-- TOC -->
 
