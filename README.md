@@ -1,5 +1,9 @@
 # Windwalker Fusion
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm](https://img.shields.io/npm/v/windwalker-fusion.svg)](https://www.npmjs.com/package/windwalker-fusion)
+
+
 Windwalker Fusion provides a clean, fluent API for calling Gulp stream ans tasks to compile your code. 
 Fusion supports several common CSS and JavaScript pre-processors.
 
