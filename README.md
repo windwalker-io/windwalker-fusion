@@ -9,6 +9,30 @@ Fusion supports several common CSS and JavaScript pre-processors.
 
 This project is inspired by [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) but based on [Gulp.js](https://gulpjs.com/).
 
+<!-- TOC -->
+
+- [Getting Started](#getting-started)
+    - [NPM Script](#npm-script)
+- [How Fusion Works](#how-fusion-works)
+    - [Tasks](#tasks)
+    - [Watch](#watch)
+    - [LiveReload](#livereload)
+- [Fusion API](#fusion-api)
+- [Available APIs](#available-apis)
+    - [`js(source, dest, options)`](#jssource-dest-options)
+    - [`babel(source, dest, options)`](#babelsource-dest-options)
+    - [`ts(source, dest, options)` or `typeScript()`](#tssource-dest-options-or-typescript)
+    - [`less(source, dest, options)`](#lesssource-dest-options)
+    - [`sass(source, dest, options)`](#sasssource-dest-options)
+    - [`copy(source, dest, options)`](#copysource-dest-options)
+    - [`livereload(source, options = {})`](#livereloadsource-options--)
+    - [`reload(source, options = {})`](#reloadsource-options--)
+    - [`through(func)`](#throughfunc)
+    - [`default([...tasks])`](#defaulttasks)
+    - [`enableNotification()` and `disableNotification()`](#enablenotification-and-disablenotification)
+
+<!-- /TOC -->
+
 ## Getting Started
 
 ```bash
