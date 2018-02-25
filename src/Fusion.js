@@ -12,6 +12,7 @@ const gulp = require('gulp');
 const input = require('minimist')(process.argv.slice(2));
 const livereload = require('gulp-livereload');
 const notifier = require('node-notifier');
+const through2 = require('through2');
 const Utilities = require("./Utilities");
 
 const SassProcessor = require('./processor/SassProcessor');
@@ -70,8 +71,8 @@ class Fusion {
     );
   }
 
-  static livereload(source, dest, options = {}) {
-    return gulp.src(source).pipe(livereload());
+  static livereload(source, options = {}) {
+    return gulp.src(source).pipe(livereload(options));
   }
 
   static reload(file = null) {
@@ -85,6 +86,10 @@ class Fusion {
 
   static dest(path, options) {
     return gulp.dest(path, options);
+  }
+
+  static through(callback) {
+    return through2.obj(callback);
   }
 
   static task(name, deps, fn) {
