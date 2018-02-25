@@ -3,6 +3,8 @@
 Windwalker Fusion provides a clean, fluent API for calling Gulp stream ans tasks to compile your code. 
 Fusion supports several common CSS and JavaScript pre-processors.
 
+This project is inspired by [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) but based on [Gulp.js](https://gulpjs.com/).
+
 ## Getting Started
 
 ```bash
