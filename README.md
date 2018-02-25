@@ -83,18 +83,24 @@ You can also add some pre-defined script to `package.json` to speed up your work
 
 ```json
   "scripts": {
-    "build": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js --gulpfile fusionfile.js",
-    "watch": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js --gulpfile fusionfile.js --watch",
-    "watch:reload": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js --gulpfile fusionfile.js --watch --livereload",
-    "prod": "cross-env NODE_ENV=production node_modules/gulp/bin/gulp.js --gulpfile fusionfile.js",
+    "build": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js --gulpfile=fusionfile.js",
+    "watch": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js --gulpfile=fusionfile.js --watch=1",
+    "watch:reload": "cross-env NODE_ENV=development node_modules/gulp/bin/gulp.js --gulpfile=fusionfile.js --watch=1 --livereload=1",
+    "prod": "cross-env NODE_ENV=production node_modules/gulp/bin/gulp.js --gulpfile=fusionfile.js"
   }
 ```
 
 If you want to add more options to npm scripts, use ` -- [--options]`:
 
 ```bash
-npm run watch -- --livereload --port xxxxx
-``` 
+npm run watch:reload -- --port=xxxxx
+```
+
+Or execute particular tasks
+
+```bash
+npm run watch -- task1 task2
+```
 
 ## How Fusion Works
 
