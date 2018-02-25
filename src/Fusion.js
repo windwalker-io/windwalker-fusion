@@ -70,6 +70,15 @@ class Fusion {
     );
   }
 
+  static livereload(source, dest, options = {}) {
+    return gulp.src(source).pipe(livereload());
+  }
+
+  static reload(file = null) {
+    livereload.reload(file);
+    return this;
+  }
+
   static src(source, options) {
     return gulp.src(source, options);
   }
