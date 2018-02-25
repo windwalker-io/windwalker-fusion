@@ -16,7 +16,7 @@ const fs = require('fs');
 
 class Utilities {
   static extractDest(dest) {
-    let merge = dest !== null && (dest.slice(-1) !== '/' || !fs.lstatSync(dest).isDirectory());
+    let merge = dest !== null && (dest.slice(-1) !== '/' || (fs.existsSync(dest) && !fs.lstatSync(dest).isDirectory()));
     let destFile;
     let destPath;
     let samePosition = false;
