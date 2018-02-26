@@ -21,7 +21,7 @@ class Processor {
   }
 
   createStream(source, options) {
-    return gulp.src(source);
+    return gulp.src(source, {follow: true});
   }
 
   process(dest = null) {
