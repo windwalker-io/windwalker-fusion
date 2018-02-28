@@ -6,21 +6,8 @@
  */
 
 const config = require('./config');
-const debounce = require('lodash.debounce');
-const EventEmitter = require('events');
 const gulp = require('gulp');
 const input = require('minimist')(process.argv.slice(2));
-const livereload = require('gulp-livereload');
-const notifier = require('node-notifier');
-const through2 = require('through2');
-const Utilities = require("./Utilities");
-
-const SassProcessor = require('./processor/SassProcessor');
-const LessProcessor = require('./processor/LessProcessor');
-const JsProcessor = require('./processor/JsProcessor');
-const BabelProcessor = require('./processor/BabelProcessor');
-const CssProcessor = require("./processor/CssProcessor");
-const TsProcessor = require("./processor/TsProcessor");
 
 const watches = [];
 let startWatching = false;
@@ -37,14 +24,20 @@ class Fusion {
   }
 
   static js(source, dest = null, options = {}) {
+    const JsProcessor = require('./processor/JsProcessor');
+
     return new JsProcessor(source, options).process(dest);
   }
 
   static babel(source, dest = null, options = {}) {
+    const BabelProcessor = require('./processor/BabelProcessor');
+
     return new BabelProcessor(source, options).process(dest);
   }
 
   static ts(source, dest = null, options = {}) {
+    const TsProcessor = require("./processor/TsProcessor");
+
     return new TsProcessor(source, options).process(dest);
   }
 
@@ -53,18 +46,26 @@ class Fusion {
   }
 
   static css(source, dest = null, options = {}) {
+    const CssProcessor = require("./processor/CssProcessor");
+
     return new CssProcessor(source, options).process(dest);
   }
 
   static less(source, dest = null, options = {}) {
+    const LessProcessor = require('./processor/LessProcessor');
+
     return new LessProcessor(source, options).process(dest);
   }
 
   static sass(source, dest = null, options = {}) {
+    const SassProcessor = require('./processor/SassProcessor');
+
     return new SassProcessor(source, options).process(dest);
   }
 
   static copy(source, dest, options = {}) {
+    const Utilities = require("./Utilities");
+
     return Utilities.postStream(
       Utilities.prepareStream(gulp.src(source))
         .pipe(gulp.dest(dest))
@@ -72,10 +73,14 @@ class Fusion {
   }
 
   static livereload(source, options = {}) {
+    const livereload = require('gulp-livereload');
+
     return gulp.src(source).pipe(livereload(options));
   }
 
   static reload(file = null) {
+    const livereload = require('gulp-livereload');
+
     livereload.reload(file);
     return this;
   }
@@ -89,6 +94,8 @@ class Fusion {
   }
 
   static through(callback) {
+    const through2 = require('through2');
+
     return through2.obj(callback);
   }
 
@@ -105,6 +112,8 @@ class Fusion {
           glob: glob
         });
       }
+
+      const EventEmitter = require('events');
 
       return new EventEmitter();
     }
@@ -125,6 +134,9 @@ class Fusion {
   }
 
   static postTask() {
+    const debounce = require('lodash.debounce');
+    const notifier = require('node-notifier');
+
     if (!notify) {
       notify = debounce(() => {
         if (config.notifySuccess) {
@@ -141,6 +153,8 @@ class Fusion {
           startWatching = true;
 
           if (input['livereload']) {
+            const livereload = require('gulp-livereload');
+
             livereload.listen(config.livereload);
           }
 

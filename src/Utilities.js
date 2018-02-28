@@ -7,12 +7,12 @@
 
 const path = require('path');
 const config = require('./config');
-const livereload = require('gulp-livereload');
 const errorHandler = require('gulp-error-handle');
 const gutil = require('gulp-util');
 const notifier = require('node-notifier');
 const chalk = require('chalk');
 const fs = require('fs');
+const input = require('minimist')(process.argv.slice(2));
 
 class Utilities {
   static extractDest(dest) {
@@ -60,7 +60,11 @@ class Utilities {
   }
 
   static postStream(stream) {
-    stream = stream.pipe(livereload(config.livereload));
+    if (input['livereload']) {
+      const livereload = require('gulp-livereload');
+
+      stream = stream.pipe(livereload(config.livereload));
+    }
 
     return stream;
   }
