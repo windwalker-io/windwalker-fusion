@@ -302,6 +302,9 @@ Available (default) options:
 
 - `sourcemap`: true
 - `minify`: true
+- `suffix`: false
+
+> **NOTE** If `js()` dest position is `NULL` without suffix, if will not override self.
 
 ### `babel(source, dest, options)`
 
@@ -311,7 +314,10 @@ Available (default) options:
 
 - `sourcemap`: true
 - `minify`: true
+- `suffix`: false (You can add `-es5` to suffix that will create `{name}-es5.js` and `{name}-es5.min.js`)
 - `presets`: `['ex2015', 'stage-2']`
+
+> **NOTE** If `babel()` dest position is `NULL` without suffix, if will not override self.
 
 See [Babel Presets](https://babeljs.io/docs/plugins/#presets)
 
