@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Part of fusion project.
  *
@@ -5,10 +7,10 @@
  * @license    MIT
  */
 
-(($) => {
+(function ($) {
   "use strict";
 
-  let sakura = 'flower';
+  var sakura = 'flower';
 
   function test() {
     //
@@ -16,10 +18,10 @@
 
   sakura += 123;
 
-  if (sakura)
-  {
+  if (sakura) {
     console.log('Test');
   }
 
   console.log(sakura, $('rose'));
 })(jQuery);
+//# sourceMappingURL=sakura-es5.js.map

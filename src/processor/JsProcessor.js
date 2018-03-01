@@ -13,19 +13,27 @@ const sourcemaps = require('gulp-sourcemaps');
 const filter = require('gulp-filter');
 const concat = require('gulp-concat');
 const merge = require('lodash.merge');
-const Utilities = require("../Utilities");
 
 class JsProcessor extends Processor {
   prepareOptions(options) {
     return merge({}, {
       sourcemap: true,
-      minify: true
+      minify: true,
+      rename: false,
+      suffix: null
     }, options);
   }
 
   createStream(source, options) {
     if (options.minify) {
       source.push('!./**/*.min.js');
+    }
+
+    if (options.suffix) {
+      source.push(`!./**/*${options.suffix}.js`);
+      source.push(`!./**/*${options.suffix}.min.js`);
+
+      options.rename = {suffix: options.suffix};
     }
 
     return gulp.src(source);
@@ -46,7 +54,17 @@ class JsProcessor extends Processor {
 
     this.compile(dest, options);
 
+    if (options.rename) {
+      this.pipe(rename(options.rename));
+    }
+
     if (dest.merge) {
+      if (options.sourcemap) {
+        this.pipe(sourcemaps.write('.'));
+      }
+
+      this.pipe(gulp.dest(dest.path));
+    } else if (!dest.samePosition || options.rename) {
       if (options.sourcemap) {
         this.pipe(sourcemaps.write('.'));
       }
@@ -54,6 +72,7 @@ class JsProcessor extends Processor {
       this.pipe(gulp.dest(dest.path));
     }
 
+    // Minify file so we remove source maps
     this.pipe(filter('**/*.js'));
 
     if (options.minify) {

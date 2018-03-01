@@ -16,7 +16,7 @@ const input = require('minimist')(process.argv.slice(2));
 
 class Utilities {
   static extractDest(dest) {
-    let merge = dest !== null && (dest.slice(-1) !== '/' || (fs.existsSync(dest) && !fs.lstatSync(dest).isDirectory()));
+    let merge = dest !== null && (dest.slice(-1) !== '/' && (fs.existsSync(dest) && !fs.lstatSync(dest).isDirectory()));
     let destFile;
     let destPath;
     let samePosition = false;
@@ -101,6 +101,7 @@ class Utilities {
         return text;
       }
     }
+
     function aside(text) {
       if (color && chalk.gray) {
         return chalk.gray(text);
@@ -109,7 +110,7 @@ class Utilities {
       }
     }
 
-    return lines.slice(start, end).map(function (lineText, index) {
+    return lines.slice(start, end).map(function(lineText, index) {
       let number = start + 1 + index;
 
       let gutter = ' ' + (' ' + number).slice(-maxWidth) + ' | ';

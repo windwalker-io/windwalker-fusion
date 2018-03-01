@@ -15,9 +15,17 @@ let promises = [];
 let notify;
 
 class Fusion {
-  static get watches() { return watches }
-  static get promises() { return promises }
-  static get public() { return config.public }
+  static get watches() {
+    return watches
+  }
+
+  static get promises() {
+    return promises
+  }
+
+  static get public() {
+    return config.public
+  }
 
   static setPublicPath(val) {
     config.public = val;
