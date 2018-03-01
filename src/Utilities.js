@@ -16,7 +16,7 @@ const input = require('minimist')(process.argv.slice(2));
 
 class Utilities {
   static extractDest(dest) {
-    let merge = dest !== null && (dest.slice(-1) !== '/' && (fs.existsSync(dest) || !fs.lstatSync(dest).isDirectory()));
+    let merge = dest !== null && (dest.slice(-1) !== '/' || (fs.existsSync(dest) && !fs.lstatSync(dest).isDirectory()));
     let destFile;
     let destPath;
     let samePosition = false;
