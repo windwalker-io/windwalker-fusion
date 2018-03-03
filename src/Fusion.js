@@ -73,11 +73,20 @@ class Fusion {
 
   static copy(source, dest, options = {}) {
     const Utilities = require("./Utilities");
+    let stream = Utilities.prepareStream(gulp.src(source));
 
-    return Utilities.postStream(
-      Utilities.prepareStream(gulp.src(source))
-        .pipe(gulp.dest(dest))
-    );
+    dest = Utilities.extractDest(dest);
+
+    if (dest.merge) {
+      const rename = require('gulp-rename');
+      const path = require('path');
+
+      stream = stream.pipe(rename(path.basename(dest.file)));
+    }
+
+    stream = stream.pipe(gulp.dest(dest.path).on('error', e => console.error(e)));
+
+    return Utilities.postStream(stream);
   }
 
   static livereload(source, options = {}) {
