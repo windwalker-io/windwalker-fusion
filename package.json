@@ -26,7 +26,6 @@
     "gulp-help": "^1.6.1",
     "gulp-if": "^2.0.2",
     "gulp-ignore": "^2.0.2",
-    "gulp-less": "^3.5.0",
     "gulp-livereload": "^3.8.1",
     "gulp-minify-css": "^1.2.4",
     "gulp-notify": "^3.2.0",
@@ -43,7 +42,10 @@
     "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.1",
     "minimist": "^1.2.0",
-    "through2": "^2.0.3",
-    "typescript": "^2.7.2"
+    "through2": "^2.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^2.7.2",
+    "gulp-less": "^3.5.0"
   }
 }
