@@ -14,6 +14,7 @@ const filter = require('gulp-filter');
 const concat = require('gulp-concat');
 const merge = require('lodash.merge');
 const rewriteCSS = require('gulp-rewrite-css');
+const eol = require('gulp-eol');
 
 const Processor = require('./Processor');
 const Utilities = require("../Utilities");
@@ -33,6 +34,8 @@ class CssPreProcessor extends Processor {
   }
 
   doProcess(dest, options) {
+    this.pipe(eol("\n", true));
+
     if (options.sourcemap) {
       this.pipe(sourcemaps.init());
     }

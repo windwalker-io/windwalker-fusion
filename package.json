@@ -20,6 +20,7 @@
     "gulp-babel": "^7.0.1",
     "gulp-concat": "^2.6.1",
     "gulp-copy": "^1.1.0",
+    "gulp-eol": "^0.2.0",
     "gulp-error-handle": "^1.0.0",
     "gulp-filter": "^5.1.0",
     "gulp-help": "^1.6.1",

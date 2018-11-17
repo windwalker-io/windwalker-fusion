@@ -13,6 +13,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const filter = require('gulp-filter');
 const concat = require('gulp-concat');
 const merge = require('lodash.merge');
+const eol = require('gulp-eol');
 
 class JsProcessor extends Processor {
   prepareOptions(options) {
@@ -44,6 +45,8 @@ class JsProcessor extends Processor {
   }
 
   doProcess(dest, options) {
+    this.pipe(eol("\n"));
+
     if (options.sourcemap) {
       this.pipe(sourcemaps.init());
     }

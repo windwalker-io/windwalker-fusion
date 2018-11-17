@@ -10,7 +10,7 @@ fusion.task('main', () => {
   // fusion.watch('test/ts/**/*.ts');
   fusion.watch('test/src/**/*.css');
   //
-  // fusion.sass('test/scss/*.scss', 'test/css/');
+  fusion.sass('test/scss/*.scss', 'test/css/');
   //fusion.less('test/less/*.less', 'test/css/');
   ////
   //fusion.css('test/src/*.css', 'test/css/merge.css');
