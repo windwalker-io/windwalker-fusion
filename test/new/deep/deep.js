@@ -10,12 +10,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  * @copyright  Copyright (C) 2018 Asikart.
  * @license    MIT
  */
-// "use strict";
 (function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee($) {
-    var a, result;
+    var a, result2;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -25,7 +24,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             return $.get('./');
 
           case 3:
-            result = _context.sent;
+            result2 = _context.sent;
             console.log(a, 'foo');
 
           case 5:
@@ -40,4 +39,4 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return _ref.apply(this, arguments);
   };
 })()(jQuery);
-//# sourceMappingURL=test-es5.js.map
+//# sourceMappingURL=deep.js.map

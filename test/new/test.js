@@ -40,4 +40,4 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return _ref.apply(this, arguments);
   };
 })()(jQuery);
-//# sourceMappingURL=test-es5.js.map
+//# sourceMappingURL=test.js.map

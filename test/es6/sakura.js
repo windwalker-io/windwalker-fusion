@@ -24,9 +24,10 @@
 
   class Hello {
     foo = 'hello';
+    #bar = 'bar';
 
     show() {
-      console.log(this.foo);
+      console.log(this.foo, this.#bar);
     }
   }
 })(jQuery);

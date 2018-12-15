@@ -20,7 +20,7 @@ fusion.task('main', () => {
   // fusion.copy('test/es6/**', 'test/new/');
 
   //fusion.babel('test/es6/**/*.js', 'test/js/app.js');
-  fusion.babel('test/es6/**/*.js', 'test/new', {suffix: '-es5'});
+  fusion.babel('test/es6/**/*.js', 'test/new/', {suffix: '-es5'});
   // fusion.ts('test/ts/*.ts', 'test/js/aoo.js', {ts: {target: 'es5'}});
 
   //fusion.less('test/less/flower.less');
