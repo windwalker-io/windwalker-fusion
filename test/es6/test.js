@@ -7,7 +7,7 @@
 
 // "use strict";
 
-(async ($) => {
+export default (async ($) => {
   const a = 'b';
 
   const result = await $.get('./');

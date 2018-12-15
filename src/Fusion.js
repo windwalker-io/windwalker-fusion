@@ -43,6 +43,12 @@ class Fusion {
     return new BabelProcessor(source, options).process(dest);
   }
 
+  static webpack(source, dest = null, options = {}) {
+    const WebpackProcessor = require('./processor/WebpackProcessor');
+
+    return new WebpackProcessor(source, options).process(dest);
+  }
+
   static ts(source, dest = null, options = {}) {
     const TsProcessor = require("./processor/TsProcessor");
 

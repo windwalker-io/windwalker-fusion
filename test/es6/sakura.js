@@ -5,6 +5,8 @@
  * @license    MIT
  */
 
+import test from './test';
+
 (($) => {
   "use strict";
 

@@ -26,4 +26,9 @@ fusion.task('main', () => {
   //fusion.less('test/less/flower.less');
 });
 
+fusion.task('webpack', () => {
+  fusion.watch('test/webpack/src/**/*.js');
+  fusion.webpack('test/webpack/src/**/*.js', 'test/webpack/dest/');
+});
+
 fusion.default(['main']);
