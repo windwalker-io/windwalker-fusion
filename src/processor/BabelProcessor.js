@@ -14,14 +14,25 @@ const filter = require('gulp-filter');
 class BabelProcessor extends JsProcessor {
   prepareOptions(options) {
     return merge(super.prepareOptions(options), {
-      presets: ['es2015', 'stage-2']
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            targets: 'last 3 version, safari 5, ie 10, not dead'
+          }
+        ]
+      ],
+      plugins: [
+        '@babel/plugin-proposal-class-properties'
+      ]
     }, options);
   }
 
   compile(dest, options) {
     this.pipe(
       babel({
-        presets: options.presets
+        presets: options.presets,
+        plugins: options.plugins,
       }).on('error', Utilities.logError(e => console.log(e.codeFrame)))
     );
   }

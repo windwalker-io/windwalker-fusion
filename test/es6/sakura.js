@@ -21,4 +21,12 @@
   }
 
   console.log(sakura, $('rose'));
+
+  class Hello {
+    foo = 'hello';
+
+    show() {
+      console.log(this.foo);
+    }
+  }
 })(jQuery);
