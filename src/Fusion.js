@@ -49,6 +49,12 @@ class Fusion {
     return new WebpackProcessor(source, options).process(dest);
   }
 
+  static vue(source, dest = null, options = {}) {
+    const VueProcessor = require('./processor/VueProcessor');
+
+    return new VueProcessor(source, options).process(dest);
+  }
+
   static ts(source, dest = null, options = {}) {
     const TsProcessor = require("./processor/TsProcessor");
 

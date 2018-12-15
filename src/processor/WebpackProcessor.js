@@ -6,37 +6,52 @@
  */
 
 const JsProcessor = require('./JsProcessor');
-const webpack = require('webpack-stream');
-const merge = require('lodash.merge');
-const BebelHelper = require("../helpers/BebelHelper");
+const BebelHelper = require('../helpers/BebelHelper');
+const named = require('vinyl-named');
 
-class BabelProcessor extends JsProcessor {
+try {
+  var webpackStream = require('webpack-stream');
+} catch (e) {
+  console.error(e);
+  console.error('Please run "yarn add webpack-stream webpack-comment-remover-loader vinyl-named babel-loader" first.');
+  process.exit(255);
+}
+
+class WebpackProcessor extends JsProcessor {
   prepareOptions(options) {
-    return merge(super.prepareOptions(options), {
-      webpack: {
-        mode: process.env.NODE_ENV || 'development',
-        output: {
-          filename: '[name].js',
-        },
-        module: {
-          rules: [
-            {
-              test: /\.m?js$/,
-              exclude: /(node_modules|bower_components)/,
-              use: {
-                loader: 'babel-loader',
-                options: BebelHelper.basicOptions()
-              }
-            }
-          ]
-        }
-      }
-    }, options);
+    options.webpack = options.webpack || this.getWebpackConfig();
+
+    return options;
   }
 
   compile(dest, options) {
-    this.pipe(webpack(options.webpack));
+    this.pipe(named());
+    this.pipe(webpackStream(options.webpack));
+  }
+
+  getWebpackConfig() {
+    return {
+      mode: process.env.NODE_ENV || 'development',
+      output: {
+        filename: '[name].js',
+        sourceMapFilename: '[name].js.map'
+      },
+      devtool: 'source-map',
+      module: {
+        rules: [
+          {
+            test: /\.m?js$/,
+            exclude: /(node_modules|bower_components)/,
+            use: [{
+              loader: 'babel-loader',
+              options: BebelHelper.basicOptions()
+            }, 'webpack-comment-remover-loader']
+          }
+        ]
+      },
+      plugins: []
+    };
   }
 }
 
-module.exports = BabelProcessor;
+module.exports = WebpackProcessor;

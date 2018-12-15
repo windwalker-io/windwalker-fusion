@@ -28,7 +28,12 @@ fusion.task('main', () => {
 
 fusion.task('webpack', () => {
   fusion.watch('test/webpack/src/**/*.js');
-  fusion.webpack('test/webpack/src/**/*.js', 'test/webpack/dest/');
+  fusion.webpack('test/webpack/src/main.js', 'test/webpack/dest/');
+});
+
+fusion.task('vue', () => {
+  fusion.watch('test/vue/src/**/*.js');
+  fusion.vue('test/vue/src/app.js', 'test/vue/dest/app.js');
 });
 
 fusion.default(['main']);
