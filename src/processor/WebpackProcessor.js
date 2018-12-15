@@ -7,9 +7,9 @@
 
 const JsProcessor = require('./JsProcessor');
 const BebelHelper = require('../helpers/BebelHelper');
-const named = require('vinyl-named');
 
 try {
+  var named = require('vinyl-named');
   var webpackStream = require('webpack-stream');
 } catch (e) {
   console.error(e);
@@ -36,7 +36,6 @@ class WebpackProcessor extends JsProcessor {
         filename: '[name].js',
         sourceMapFilename: '[name].js.map'
       },
-      devtool: 'source-map',
       module: {
         rules: [
           {
