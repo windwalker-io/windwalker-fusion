@@ -28,10 +28,7 @@ class BabelProcessor extends JsProcessor {
 
   compile(dest, options) {
     this.pipe(
-      babel({
-        presets: options.presets,
-        plugins: options.plugins,
-      }).on('error', Utilities.logError(e => console.log(e.codeFrame)))
+      babel(options.babel).on('error', Utilities.logError(e => console.log(e.codeFrame)))
     );
   }
 }
