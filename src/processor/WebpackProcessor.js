@@ -36,6 +36,12 @@ class WebpackProcessor extends JsProcessor {
         filename: '[name].js',
         sourceMapFilename: '[name].js.map'
       },
+      stats: {
+        all: false,
+        errors: true,
+        warnings: true,
+        version: false,
+      },
       module: {
         rules: [
           {
