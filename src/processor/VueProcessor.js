@@ -10,8 +10,9 @@ const WebpackProcessor = require('./WebpackProcessor');
 try {
   var { VueLoaderPlugin } = require('vue-loader');
 } catch (e) {
+  const chalk = require('chalk');
   console.error(e);
-  console.error('Please run "yarn add vue vue-loader vue-style-loader vue-template-compiler css-loader sass-loader " first.');
+  console.error(`\nPlease run "${chalk.yellow('yarn add vue vue-loader vue-style-loader vue-template-compiler css-loader sass-loader')}" first.\n`);
   process.exit(255);
 }
 

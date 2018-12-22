@@ -12,8 +12,9 @@ try {
   var named = require('vinyl-named-with-path');
   var webpackStream = require('webpack-stream');
 } catch (e) {
+  const chalk = require('chalk');
   console.error(e);
-  console.error('Please run "yarn add webpack-stream webpack-comment-remover-loader vinyl-named-with-path babel-loader" first.');
+  console.error(`\nPlease run "${chalk.yellow('yarn add webpack-stream webpack-comment-remover-loader vinyl-named-with-path babel-loader')}" first.\n`);
   process.exit(255);
 }
 
