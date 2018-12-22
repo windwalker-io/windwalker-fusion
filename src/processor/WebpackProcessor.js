@@ -9,11 +9,11 @@ const JsProcessor = require('./JsProcessor');
 const BebelHelper = require('../helpers/BebelHelper');
 
 try {
-  var named = require('vinyl-named');
+  var named = require('vinyl-named-with-path');
   var webpackStream = require('webpack-stream');
 } catch (e) {
   console.error(e);
-  console.error('Please run "yarn add webpack-stream webpack-comment-remover-loader vinyl-named babel-loader" first.');
+  console.error('Please run "yarn add webpack-stream webpack-comment-remover-loader vinyl-named-with-path babel-loader" first.');
   process.exit(255);
 }
 
@@ -25,8 +25,8 @@ class WebpackProcessor extends JsProcessor {
   }
 
   compile(dest, options) {
-    this.pipe(named());
-    this.pipe(webpackStream(options.webpack));
+    this.pipe(named())
+      .pipe(webpackStream(options.webpack));
   }
 
   getWebpackConfig() {

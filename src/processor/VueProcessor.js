@@ -20,7 +20,7 @@ const merge = require('lodash.merge');
 class VueProcessor extends WebpackProcessor {
   getWebpackConfig() {
     return merge(super.getWebpackConfig(), {
-      devtool: 'eval-source-map',
+      // devtool: 'eval-source-map',
       // ensure we are using the version of Vue that supports templates
       resolve: {
         alias: {
@@ -28,11 +28,11 @@ class VueProcessor extends WebpackProcessor {
         },
         extensions: ['*', '.js', '.vue', '.json']
       },
-      // vue: {
-      //   buble: {
-      //     objectAssign: 'Object.assign'
-      //   }
-      // },
+      vue: {
+        buble: {
+          objectAssign: 'Object.assign'
+        }
+      },
       module: {
         rules: [
           {
