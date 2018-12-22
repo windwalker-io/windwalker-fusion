@@ -28,11 +28,6 @@ class VueProcessor extends WebpackProcessor {
         },
         extensions: ['*', '.js', '.vue', '.json']
       },
-      vue: {
-        buble: {
-          objectAssign: 'Object.assign'
-        }
-      },
       module: {
         rules: [
           {
