@@ -25,7 +25,7 @@ class CssPreProcessor extends Processor {
       sourcemap: true,
       autoprefixer: true,
       minify: true,
-      rebase: true
+      rebase: false
     }, options);
   }
 
