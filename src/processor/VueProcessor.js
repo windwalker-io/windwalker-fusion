@@ -6,6 +6,7 @@
  */
 
 const WebpackProcessor = require('./WebpackProcessor');
+const BebelHelper = require('../helpers/BebelHelper');
 
 try {
   var { VueLoaderPlugin } = require('vue-loader');
@@ -57,8 +58,11 @@ class VueProcessor extends WebpackProcessor {
           },
           {
             test: /\.js$/,
-            loader: 'babel-loader',
-            exclude: /node_modules/
+            exclude: /(node_modules|bower_components)/,
+            use: [{
+              loader: 'babel-loader',
+              options: BebelHelper.basicOptions()
+            }]
           },
           {
             test: /\.(png|jpg|gif|svg)$/,
