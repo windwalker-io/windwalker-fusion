@@ -140,6 +140,16 @@ class Utilities {
       }
     }).join('\n');
   };
+
+  static show(...args) {
+    const util = require('util');
+
+    args = args.map((arg) => {
+      return util.inspect(arg, {showHidden: false, depth: null});
+    });
+
+    console.log(...args);
+  }
 }
 
 module.exports = Utilities;
