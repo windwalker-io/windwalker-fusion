@@ -27,6 +27,13 @@ class VueProcessor extends WebpackProcessor {
       options.webpack.externals = { vue: 'Vue' };
     }
 
+    // Remove webpack-comment-remover-loader
+    options.webpack.module.rules.forEach((rule) => {
+      if (rule.use && rule.use[1] === 'webpack-comment-remover-loader') {
+        rule.use.splice(1, 1);
+      }
+    });
+
     return options;
   }
 
