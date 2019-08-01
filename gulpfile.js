@@ -33,7 +33,11 @@ fusion.task('webpack', () => {
 
 fusion.task('vue', () => {
   fusion.watch('test/vue/src/**/*.js');
-  fusion.vue('test/vue/src/**/*.js', 'test/vue/dest/');
+  fusion.vue(
+    'test/vue/src/**/*.js',
+    'test/vue/dest/',
+    { excludeVue: true }
+    );
 });
 
 fusion.default(['main']);

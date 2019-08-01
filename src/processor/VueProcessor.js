@@ -17,11 +17,21 @@ try {
   process.exit(255);
 }
 
-const merge = require('lodash.merge');
+const Utilities = require('../Utilities');
 
 class VueProcessor extends WebpackProcessor {
+  prepareOptions(options) {
+    options = super.prepareOptions(options);
+
+    if (options.excludeVue) {
+      options.webpack.externals = { vue: 'Vue' };
+    }
+
+    return options;
+  }
+
   getWebpackConfig() {
-    return merge(super.getWebpackConfig(), {
+    return Utilities.merge(super.getWebpackConfig(), {
       // devtool: 'eval-source-map',
       // ensure we are using the version of Vue that supports templates
       resolve: {

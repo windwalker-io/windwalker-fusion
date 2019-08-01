@@ -13,8 +13,26 @@ const notifier = require('node-notifier');
 const chalk = require('chalk');
 const fs = require('fs');
 const input = require('minimist')(process.argv.slice(2));
+const mergeWith = require('lodash.mergewith');
 
 class Utilities {
+  /**
+   * Merge object and concat array
+   * @see https://lodash.com/docs/4.17.15#mergeWith
+   *
+   * @param args
+   */
+  static merge(...args) {
+    return mergeWith(
+      ...args,
+      (objValue, srcValue) => {
+        if (Array.isArray(objValue)) {
+          return objValue.concat(srcValue);
+        }
+      }
+    );
+  }
+
   static extractDest(dest) {
     let merge = dest !== null && (dest.slice(-1) !== '/' || (fs.existsSync(dest) && !fs.lstatSync(dest).isDirectory()));
     let destFile;

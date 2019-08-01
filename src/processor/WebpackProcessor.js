@@ -18,10 +18,17 @@ try {
   process.exit(255);
 }
 
+const Utilities = require('../Utilities');
+
 class WebpackProcessor extends JsProcessor {
   prepareOptions(options) {
-    options.webpack = options.webpack || this.getWebpackConfig();
-
+    if (!options.override) {
+      options.webpack = Utilities.merge(
+        this.getWebpackConfig(),
+        options.webpack
+      );
+    }
+    
     return options;
   }
 
