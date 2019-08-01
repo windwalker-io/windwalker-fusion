@@ -13,22 +13,21 @@ const rename = require('gulp-rename');
 const filter = require('gulp-filter');
 const concat = require('gulp-concat');
 const rewriteCSS = require('gulp-rewrite-css');
-const merge = require('lodash.merge');
 const config = require('../config');
-const Utilities = require("../Utilities");
+const Utilities = require('../Utilities');
 
 class CssProcessor extends Processor {
   prepareOptions(options) {
-    return merge({}, {
+    return Utilities.merge({}, {
       autoprefixer: true,
       minify: true,
       rebase: true
-    }, options);
+    }, super.prepareOptions(options));
   }
 
   doProcess(dest, options) {
     if (options.rebase) {
-      this.pipe(rewriteCSS({destination: dest.path}));
+      this.pipe(rewriteCSS({ destination: dest.path }));
     }
 
     if (dest.merge) {
@@ -36,12 +35,12 @@ class CssProcessor extends Processor {
     }
 
     if (options.autoprefixer) {
-      this.pipe(autoprefixer("last 3 version", "safari 5", "ie 9-11").on('error', Utilities.logError()));
+      this.pipe(autoprefixer('last 3 version', 'safari 5', 'ie 9-11').on('error', Utilities.logError()));
     }
 
     this.pipe(gulp.dest(dest.path))
       .pipe(filter('**/*.css'))
-      .pipe(rename({suffix: '.min'}));
+      .pipe(rename({ suffix: '.min' }));
 
     if (options.minify) {
       this.pipe(minifycss());

@@ -29,7 +29,7 @@ class WebpackProcessor extends JsProcessor {
       );
     }
     
-    return options;
+    return super.prepareOptions(options);
   }
 
   compile(dest, options) {

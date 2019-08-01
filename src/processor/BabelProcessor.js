@@ -21,9 +21,9 @@ const BabelHelper = require('../helpers/BebelHelper');
 
 class BabelProcessor extends JsProcessor {
   prepareOptions(options) {
-    options = merge(super.prepareOptions(options), {
+    options = Utilities.merge({
       babel: BabelHelper.basicOptions()
-    }, options);
+    }, super.prepareOptions(options));
 
     switch (options.module) {
       case 'umd':

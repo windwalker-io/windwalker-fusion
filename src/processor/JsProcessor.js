@@ -12,17 +12,17 @@ const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 const filter = require('gulp-filter');
 const concat = require('gulp-concat');
-const merge = require('lodash.merge');
 const eol = require('gulp-eol');
+const Utilities = require('../Utilities');
 
 class JsProcessor extends Processor {
   prepareOptions(options) {
-    return merge({}, {
+    return Utilities.merge({}, {
       sourcemap: true,
       minify: true,
       rename: false,
       suffix: null
-    }, options);
+    }, super.prepareOptions(options));
   }
 
   createStream(source, options) {

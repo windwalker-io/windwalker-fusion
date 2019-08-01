@@ -21,12 +21,12 @@ const Utilities = require("../Utilities");
 
 class CssPreProcessor extends Processor {
   prepareOptions(options) {
-    return merge({}, {
+    return Utilities.merge({}, {
       sourcemap: true,
       autoprefixer: true,
       minify: true,
       rebase: false
-    }, options);
+    }, super.prepareOptions(options));
   }
 
   compile() {
@@ -35,7 +35,7 @@ class CssPreProcessor extends Processor {
 
   doProcess(dest, options) {
     this.pipe(eol("\n", true));
-    console.log(options);
+
     if (options.sourcemap) {
       this.pipe(sourcemaps.init());
     }

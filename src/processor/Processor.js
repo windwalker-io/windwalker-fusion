@@ -11,10 +11,7 @@ const Utilities = require("../Utilities");
 class Processor {
   constructor(source, options = {}) {
     this.source = source;
-    this.options = Utilities.merge(
-      this.constructor.defaultOptions || {},
-      this.prepareOptions(options)
-    );
+    this.options = this.prepareOptions(options);
 
     if (typeof source === 'string') {
       source = [source];
@@ -53,7 +50,10 @@ class Processor {
   }
 
   prepareOptions(options) {
-    return options;
+    return Utilities.merge(
+      this.constructor.defaultOptions || {},
+      options
+    );
   }
 
   static setDefaultOptions(options) {

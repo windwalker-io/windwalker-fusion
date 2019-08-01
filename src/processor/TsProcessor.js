@@ -11,19 +11,19 @@ const uglify = require('gulp-uglify-es').default;
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 const filter = require('gulp-filter');
-const concat = require('gulp-concat');
 const ts = require('gulp-typescript');
 
 const JsProcessor = require('./JsProcessor');
+const Utilities = require('../Utilities');
 
 class TsProcessor extends JsProcessor {
   prepareOptions(options) {
-    options = merge(super.prepareOptions(options), {
+    options = Utilities.merge({
       ts: {
         declaration: false,
         target: 'es6'
       }
-    }, options);
+    }, super.prepareOptions(options));
 
     if (options.ts.target.toLocaleLowerCase() === 'es5') {
       options.ts.lib = options.ts.lib || ['es6', 'es7', 'dom', 'DOM.Iterable'];
