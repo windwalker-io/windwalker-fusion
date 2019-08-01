@@ -67,14 +67,6 @@ class VueProcessor extends WebpackProcessor {
             }
           },
           {
-            test: /\.js$/,
-            exclude: /(node_modules|bower_components)/,
-            use: [{
-              loader: 'babel-loader',
-              options: BebelHelper.basicOptions()
-            }]
-          },
-          {
             test: /\.(png|jpg|gif|svg)$/,
             loader: 'file-loader',
             options: {
