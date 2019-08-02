@@ -51,6 +51,7 @@ class Processor {
 
   prepareOptions(options) {
     return Utilities.merge(
+      {},
       this.constructor.defaultOptions || {},
       options
     );
