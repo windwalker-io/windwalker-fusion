@@ -18,14 +18,10 @@ try {
 }
 
 const Utilities = require('../Utilities');
+const merge = require('lodash.merge');
 
 class VueProcessor extends WebpackProcessor {
   prepareOptions(options) {
-    options = Utilities.merge(
-      this.constructor.defaultOptions || {},
-      options
-    );
-
     if (!options.override) {
       options.webpack = Utilities.merge(
         this.getWebpackConfig(),
@@ -48,7 +44,7 @@ class VueProcessor extends WebpackProcessor {
   }
 
   getWebpackConfig() {
-    return Utilities.merge(super.getWebpackConfig(), {
+    return merge(super.getWebpackConfig(), {
       // devtool: 'eval-source-map',
       // ensure we are using the version of Vue that supports templates
       resolve: {
