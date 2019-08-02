@@ -23,6 +23,7 @@ const merge = require('lodash.merge');
 class VueProcessor extends WebpackProcessor {
   prepareOptions(options) {
     options = Utilities.merge(
+      {},
       this.constructor.defaultOptions,
       options
     );
@@ -39,11 +40,11 @@ class VueProcessor extends WebpackProcessor {
     }
 
     // Remove webpack-comment-remover-loader
-    options.webpack.module.rules.forEach((rule) => {
-      if (rule.use && rule.use[1] === 'webpack-comment-remover-loader') {
-        rule.use.splice(1, 1);
-      }
-    });
+    // options.webpack.module.rules.forEach((rule) => {
+    //   if (rule.use && rule.use[1] === 'webpack-comment-remover-loader') {
+    //     rule.use.splice(1, 1);
+    //   }
+    // });
 
     return options;
   }
