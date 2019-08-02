@@ -22,6 +22,11 @@ const merge = require('lodash.merge');
 
 class VueProcessor extends WebpackProcessor {
   prepareOptions(options) {
+    options = Utilities.merge(
+      this.constructor.defaultOptions,
+      options
+    );
+
     if (!options.override) {
       options.webpack = Utilities.merge(
         this.getWebpackConfig(),
