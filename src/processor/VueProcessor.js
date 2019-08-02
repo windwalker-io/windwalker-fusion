@@ -21,7 +21,17 @@ const Utilities = require('../Utilities');
 
 class VueProcessor extends WebpackProcessor {
   prepareOptions(options) {
-    options = super.prepareOptions(options);
+    options = Utilities.merge(
+      this.constructor.defaultOptions || {},
+      options
+    );
+
+    if (!options.override) {
+      options.webpack = Utilities.merge(
+        this.getWebpackConfig(),
+        options.webpack
+      );
+    }
 
     if (options.excludeVue) {
       options.webpack.externals = { vue: 'Vue' };
@@ -79,6 +89,14 @@ class VueProcessor extends WebpackProcessor {
             options: {
               name: '[name].[ext]?[hash]'
             }
+          },
+          {
+            test: /\.m?js$/,
+            exclude: /(node_modules|bower_components)/,
+            use: [{
+              loader: 'babel-loader',
+              options: BebelHelper.basicOptions()
+            }]
           }
         ]
       },
