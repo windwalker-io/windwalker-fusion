@@ -17,7 +17,8 @@ class BabelHelper {
         ]
       ],
       plugins: [
-        '@babel/plugin-proposal-class-properties'
+        '@babel/plugin-proposal-decorators',
+        '@babel/plugin-proposal-class-properties',
       ]
     }
   }
