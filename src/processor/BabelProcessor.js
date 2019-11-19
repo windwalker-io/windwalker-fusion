@@ -11,7 +11,11 @@ try {
   var babel = require('gulp-babel');
 } catch (e) {
   console.error(e);
-  console.error('Please run "yarn add @babel/core @babel/plugin-proposal-class-properties @babel/plugin-proposal-decorators @babel/preset-env" first.');
+  console.error(
+    'Please run "yarn add @babel/core @babel/plugin-proposal-class-properties ' +
+    '@babel/plugin-proposal-decorators @babel/plugin-proposal-optional-chaining ' +
+    '@babel/preset-env" first.'
+  );
   process.exit(255);
 }
 
