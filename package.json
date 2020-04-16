@@ -1,6 +1,6 @@
 {
   "name": "windwalker-fusion",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "description": "Windwalker Fusion",
   "main": "src/index.js",
   "repository": "https://github.com/ventoviro/windwalker-fusion",
