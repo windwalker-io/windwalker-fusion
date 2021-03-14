@@ -1,9 +1,8 @@
 node_modules
 .idea
 yarn.lock
+!.gitkeep
 
 # Test
 #/fusionfile.js
-test/**/*.css
-test/**/*.min.js
-test/**/*.map
+/test/dest/*
