@@ -1,0 +1,1 @@
+{"version":3,"sources":["hello.scss","variables.scss"],"names":[],"mappings":"AAGA;EACE,YCHU,EDIX","file":"hello.css","sourcesContent":["\n@import \"variables\";\n\n.test {\n  color: $color;\n}\n","\r\n$color: blue;\r\n"]}

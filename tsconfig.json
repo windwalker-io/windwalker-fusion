@@ -7,7 +7,7 @@
     "target": "es2015"
   },
   "include": [
-    "src/**/*"
+    "legacy/src/**/*"
   ],
   "exclude": [
     "node_modules",

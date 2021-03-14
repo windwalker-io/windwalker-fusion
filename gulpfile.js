@@ -1,43 +1,45 @@
+/**
+ * Part of fusion project.
+ *
+ * @copyright  Copyright (C) 2021 .
+ * @license    __LICENSE__
+ */
 
-const fusion = require('./src/index');
+import gulp from 'gulp';
+const { parallel, series } = gulp;
 
-fusion.setPublicPath('test');
+export function foo(cb) {
+  // place code for your default task here
+  cb();
+}
 
-fusion.task('main', () => {
-  // fusion.watch('test/scss/**/*.scss');
-  // fusion.watch('test/less/**/*.less');
-  fusion.watch('test/es6/**/*.js');
-  // fusion.watch('test/ts/**/*.ts');
-  fusion.watch('test/src/**/*.css');
-  //
-  fusion.sass('test/scss/*.scss', 'test/css/');
-  //fusion.less('test/less/*.less', 'test/css/');
-  ////
-  //fusion.css('test/src/*.css', 'test/css/merge.css');
-  //fusion.css('test/src/deep/*.css', 'test/css/deep.css');
-  // fusion.sass('test/src/deep/*.scss', 'test/css/deep-scss.css');
-  // fusion.js('test/es6/*.js', 'test/js/yoo.js');
-  // fusion.copy('test/es6/**', 'test/new/');
+export function hello(cb) {
 
-  //fusion.babel('test/es6/**/*.js', 'test/js/app.js');
-  fusion.babel('test/es6/**/*.js', 'test/new/', {suffix: '-es5'});
-  // fusion.ts('test/ts/*.ts', 'test/js/aoo.js', {ts: {target: 'es5'}});
+  cb();
+}
 
-  //fusion.less('test/less/flower.less');
-});
+function minify(cb) {
+  // body omitted
+  cb();
+}
 
-fusion.task('webpack', () => {
-  fusion.watch('test/webpack/src/**/*.js');
-  fusion.webpack('test/webpack/src/main.js', 'test/webpack/dest/');
-});
 
-fusion.task('vue', () => {
-  fusion.watch('test/vue/src/**/*.js');
-  fusion.vue(
-    'test/vue/src/**/*.js',
-    'test/vue/dest/',
-    { excludeVue: true }
-    );
-});
+function transpile(cb) {
+  // body omitted
+  cb();
+}
 
-fusion.default(['main']);
+function livereload(cb) {
+  // body omitted
+  cb();
+}
+
+let build;
+
+if (process.env.NODE_ENV === 'production') {
+  build = series(transpile, minify);
+} else {
+  build = series(transpile, livereload);
+}
+
+export default build;
