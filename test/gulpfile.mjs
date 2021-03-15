@@ -5,29 +5,23 @@
  * @license    __LICENSE__
  */
 
-import gulp from 'gulp';
 import del from 'del';
-import { dest, src, watch, series, parallel } from '../src/index.js';
+import { dest, series, src, watch, css as cssTask } from '../src/index.js';
 
 css.description = 'Build CSS';
 css.flags = {
   '--prod': 'Build prod'
 };
 
-async function css(cb) {
+async function css() {
   watch(['./src/css/**/*.css']);
 
-  console.log('Hello');
-
-  src('./src/css/**/*.css')
-    .pipe(dest('./dest/css/'));
-
-  cb();
+  cssTask('./src/css/**/*.css', './dest/css/moved/');
 }
 
 export const wa = async () => [
-    watch('./src/css/**/*.css'),
-    src('./src/css/**/*.css').pipe(dest('./dest/css/'))
+  watch('./src/css/**/*.css'),
+  src('./src/css/**/*.css').pipe(dest('./dest/css/'))
 ];
 
 // export function css3() {

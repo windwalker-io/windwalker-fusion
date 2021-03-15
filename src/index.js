@@ -8,4 +8,4 @@
 export * from './base/base.js';
 export * from './config.js';
 export * from './lifecycles.js';
-export * from './processors/css.js';
+export { default as css }  from './processors/css.js';
