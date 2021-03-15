@@ -5,8 +5,15 @@
  * @license    __LICENSE__
  */
 
-export * from './series.js';
-// export * from './watch.js';
-// export * from './watch.js';
+import gulp from 'gulp';
+
+export const src = gulp.src;
+export const dest = gulp.dest;
+export const symlink = gulp.symlink;
+export const lastRun = gulp.lastRun;
+export const task = gulp.task;
+export const registry = gulp.registry;
+export const tree = gulp.tree;
+
 export * from './watch.js';
 export * from './override.js';

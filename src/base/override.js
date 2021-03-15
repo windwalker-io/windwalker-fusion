@@ -11,8 +11,11 @@ import { watching } from './watch.js';
 
 const ranTasks = [];
 
-gulp.series = decorate(gulp.series);
-gulp.parallel = decorate(gulp.parallel);
+export const series = gulp.series;
+export const parallel = gulp.parallel;
+
+gulp.series = decorate(series);
+gulp.parallel = decorate(parallel);
 
 function decorate(origin) {
   return function (tasks) {

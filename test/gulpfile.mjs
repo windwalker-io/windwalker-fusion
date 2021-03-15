@@ -7,8 +7,7 @@
 
 import gulp from 'gulp';
 import del from 'del';
-import { watch } from '../src/index.js';
-const { parallel, series, src, dest, watch: gulpWatch } = gulp;
+import { dest, src, watch, series, parallel } from '../src/index.js';
 
 css.description = 'Build CSS';
 css.flags = {
@@ -25,6 +24,11 @@ async function css(cb) {
 
   cb();
 }
+
+export const wa = async () => [
+    watch('./src/css/**/*.css'),
+    src('./src/css/**/*.css').pipe(dest('./dest/css/'))
+];
 
 // export function css3() {
 //   return watch(
@@ -71,6 +75,8 @@ export function clean() {
     ]
   );
 }
+
+export const all = series(clean, css);
 
 export default css;
 

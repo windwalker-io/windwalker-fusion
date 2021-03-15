@@ -4,6 +4,7 @@
  * @copyright  Copyright (C) 2021 .
  * @license    __LICENSE__
  */
+
 import gulp from 'gulp';
 import { cliInput } from '../utilities/cli.js';
 import EventEmitter from 'events';
@@ -15,7 +16,7 @@ export const watching = {
   start: false
 };
 
-export async function watch(glob, opt, fn) {
+export function watch(glob, opt, fn) {
   if (
     (typeof opt === 'object' && fn == null)
       || (opt == null && fn == null)
