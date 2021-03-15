@@ -28,9 +28,9 @@ fusion.default(['main']);
  * fusion.babel(source, dest, options = {})
  * fusion.ts(source, dest, options = {})
  * fusion.typeScript(source, dest, options = {})
- * fusion.css(source, dest, options = {})
+ * fusion.cssProcessor(source, dest, options = {})
  * fusion.less(source, dest, options = {})
- * fusion.sass(source, dest, options = {})
+ * fusion.sassProcessor(source, dest, options = {})
  * fusion.copy(source, dest, options = {})
  *
  * Live Reload:

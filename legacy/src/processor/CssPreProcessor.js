@@ -7,7 +7,7 @@
 
 const gulp = require('gulp');
 const autoprefixer = require('gulp-autoprefixer');
-const minifycss = require('gulp-minify-css');
+const minifycss = require('gulp-minify-cssProcessor');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 const filter = require('gulp-filter');
@@ -59,7 +59,7 @@ class CssPreProcessor extends Processor {
     }
 
     this.pipe(gulp.dest(dest.path))
-      .pipe(filter('**/*.css'))
+      .pipe(filter('**/*.cssProcessor'))
       .pipe(rename({suffix: '.min'}));
 
     if (options.minify) {

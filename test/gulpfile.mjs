@@ -6,22 +6,19 @@
  */
 
 import del from 'del';
-import { dest, series, src, watch, css as cssTask } from '../src/index.js';
+import { dest, series, src, watch, css as cssTask, sass } from '../src/index.js';
 
 css.description = 'Build CSS';
-css.flags = {
-  '--prod': 'Build prod'
-};
+export default async function css() {
+  watch(['./src/cssProcessor/**/*.cssProcessor']);
 
-async function css() {
-  watch(['./src/css/**/*.css']);
-
-  cssTask('./src/css/**/*.css', './dest/css/moved/');
+  cssTask('./src/cssProcessor/**/*.cssProcessor', './dest/css/moved/');
+  sass('./src/scss/**/*.scss', './dest/css/scss/')
 }
 
 export const wa = async () => [
-  watch('./src/css/**/*.css'),
-  src('./src/css/**/*.css').pipe(dest('./dest/css/'))
+  watch('./src/cssProcessor/**/*.cssProcessor'),
+  src('./src/cssProcessor/**/*.cssProcessor').pipe(dest('./dest/css/'))
 ];
 
 // export function css3() {
@@ -43,14 +40,14 @@ export const wa = async () => [
 //
 // } |> watch;
 //
-// export const css = async cb => {
+// export const cssProcessor = async cb => {
 //   cb();
-//   cb = await watch(['./src/css/**/*.css']);
+//   cb = await watch(['./src/cssProcessor/**/*.cssProcessor']);
 //
 //   console.log('Hello');
 //
-//   src('./src/css/**/*.css')
-//     .pipe(dest('./dest/css/'));
+//   src('./src/cssProcessor/**/*.cssProcessor')
+//     .pipe(dest('./dest/cssProcessor/'));
 //
 //   cb();
 // };
@@ -71,7 +68,5 @@ export function clean() {
 }
 
 export const all = series(clean, css);
-
-export default css;
 
 

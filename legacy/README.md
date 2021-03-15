@@ -25,7 +25,7 @@ This project is inspired by [Laravel Mix](https://github.com/JeffreyWay/laravel-
     - [`babel(source, dest, options)`](#babelsource-dest-options)
     - [`ts(source, dest, options)` or `typeScript()`](#tssource-dest-options-or-typescript)
     - [`less(source, dest, options)`](#lesssource-dest-options)
-    - [`sass(source, dest, options)`](#sasssource-dest-options)
+    - [`sassProcessor(source, dest, options)`](#sasssource-dest-options)
     - [`copy(source, dest, options)`](#copysource-dest-options)
     - [`livereload(source, options = {})`](#livereloadsource-options--)
     - [`reload(source, options = {})`](#reloadsource-options--)
@@ -52,7 +52,7 @@ const fusion = require('windwalker-fusion');
 fusion.task('main', function () {
   fusion.watch('src/scss/**/*.scss');
 
-  fusion.sass('src/scss/**/*.scss', 'dist/app.css');
+  fusion.sassProcessor('src/scss/**/*.scss', 'dist/app.cssProcessor');
 });
 
 fusion.default(['main']);
@@ -66,11 +66,11 @@ Then run:
 node node_modules\gulp\bin\gulp.js --gulpfile fusionfile.js
 ```
 
-Gulp will help you compile all `.scss` files to `dist/app.css` and generate below files:
+Gulp will help you compile all `.scss` files to `dist/app.cssProcessor` and generate below files:
 
-- `dist/app.css`
-- `dist/app.min.css`
-- `dist/app.css.map`
+- `dist/app.cssProcessor`
+- `dist/app.min.cssProcessor`
+- `dist/app.cssProcessor.map`
 
 You can add `--watch` to watch `src/scss/**/*.scss` and re-compile, or add `--livereload` to refresh browser after
 built.
@@ -107,7 +107,7 @@ npm run watch -- task1 task2
 Fusion is a Gulp wrap with some pre-defined flow, for example, you can use this simple code to compile SCSS files:
 
 ```js
-fusion.sass('src/**/*.scss', 'dist/');
+fusion.sassProcessor('src/**/*.scss', 'dist/');
 ```
 
 Which is same as:
@@ -115,17 +115,17 @@ Which is same as:
 ```js
 const gulp = require('gulp');
 const autoprefixer = require('gulp-autoprefixer');
-const minifycss = require('gulp-minify-css');
+const minifycss = require('gulp-minify-cssProcessor');
 const rename = require('gulp-rename');
 const filter = require('gulp-filter');
-const rewriteCSS = require('gulp-rewrite-css');
+const rewriteCSS = require('gulp-rewrite-cssProcessor');
 
 gulp.src('src/**/*.scss')
     .pipe({ style: 'expanded' })
     .pipe(rewriteCSS({destination: 'dist/'}))
     .pipe(autoprefixer("last 3 version", "safari 5", "ie 9-11"))
     .pipe(gulp.dest('dist/'))
-    .pipe(filter('**/*.css'))
+    .pipe(filter('**/*.cssProcessor'))
     .pipe(rename({suffix: '.min'}))
     .pipe(minifycss())
     .pipe(gulp.dest('dist/'));
@@ -136,7 +136,7 @@ gulp.src('src/**/*.scss')
 Fusion must use task to wrap every compile flow:
 
 ```js
-fusion.task('css', () => {
+fusion.task('cssProcessor', () => {
   // ...
 });
 
@@ -144,11 +144,11 @@ fusion.task('js', () => {
   // ...
 });
 
-fusion.default(['css', 'js']);
+fusion.default(['cssProcessor', 'js']);
 ```
 
 Then the last `fusion.default([tasks])` defines the default tasks. So if you call `gulp` without and arguments, 
-Fusion will execute `css` and `js` two tasks automatically. You can also use `gulp css` to execute particular task.
+Fusion will execute `cssProcessor` and `js` two tasks automatically. You can also use `gulp cssProcessor` to execute particular task.
 
 > More about Gulp tasks please see: [Gulp doc](https://github.com/gulpjs/gulp/blob/v3.9.1/docs/API.md)  
 
@@ -157,7 +157,7 @@ Fusion will execute `css` and `js` two tasks automatically. You can also use `gu
 You can define the watch files to auto compile when file changes. You can use default Gulp syntax to define watchers.
 
 ```js
-fusion.task('css', () => {
+fusion.task('cssProcessor', () => {
   // ...
 });
 
@@ -166,19 +166,19 @@ fusion.task('js', () => {
 });
 
 fusion.task('watch', () => {
-  fusion.watch('src/**/*.scss', ['css']);
+  fusion.watch('src/**/*.scss', ['cssProcessor']);
   fusion.watch(['src/**/*.js', '!./**/*.min.js'], ['js']);
 });
 
-fusion.default(['css', 'js']);
+fusion.default(['cssProcessor', 'js']);
 ```
 
-Use `gulp watch` to run watch task, then gulp will listen files to update `css` and `js` tasks.
+Use `gulp watch` to run watch task, then gulp will listen files to update `cssProcessor` and `js` tasks.
 
 But Fusion provides a more convenience way to set watch files in every task:
 
 ```js
-fusion.task('css', () => {
+fusion.task('cssProcessor', () => {
   fusion.watch('src/**/*.scss');
   
   // ...
@@ -190,7 +190,7 @@ fusion.task('js', () => {
   // ...
 });
 
-fusion.default(['css', 'js', 'watch']);
+fusion.default(['cssProcessor', 'js', 'watch']);
 ``` 
 
 Only send first `glob` argument to watch, then watcher will only watch this task. Then use `gulp --watch` to enable
@@ -225,8 +225,8 @@ Fusion provides simple interface to build Gulp stream flow, there are some tips 
 Compile one file, and save compiled file to same folder:
 
 ```js
-// Generate app.css / app.min.css / app.css.map to same folder.
-fusion.sass('asset/css/app.scss');
+// Generate app.cssProcessor / app.min.cssProcessor / app.cssProcessor.map to same folder.
+fusion.sassProcessor('asset/cssProcessor/app.scss');
 ```
 
 ### One source file and dest file or dir.
@@ -234,10 +234,10 @@ fusion.sass('asset/css/app.scss');
 Compile one file, and save compiled file as new file and position:
 
 ```js
-// Generate app.css / app.min.css / app.css.map to /dist folder.
-fusion.sass('src/css/app.scss', 'dist/app.css');
+// Generate app.cssProcessor / app.min.cssProcessor / app.cssProcessor.map to /dist folder.
+fusion.sassProcessor('src/cssProcessor/app.scss', 'dist/app.cssProcessor');
 
-fusion.sass('src/css/app.scss', 'dist/');
+fusion.sassProcessor('src/cssProcessor/app.scss', 'dist/');
 ```
 
 ### Multiple source file and no dest file.
@@ -245,10 +245,10 @@ fusion.sass('src/css/app.scss', 'dist/');
 Compile multiple files, and save compiled files to same folder:
 
 ```js
-// Generate *.css / *.min.css / *.css.map to same folder.
-fusion.sass('src/css/**/*.scss');
+// Generate *.cssProcessor / *.min.cssProcessor / *.cssProcessor.map to same folder.
+fusion.sassProcessor('src/cssProcessor/**/*.scss');
 
-fusion.sass(['src/css/a.scss', 'src/css/b.scss']);
+fusion.sassProcessor(['src/cssProcessor/a.scss', 'src/cssProcessor/b.scss']);
 ```
 
 ### Multiple source file and dest folder.
@@ -256,10 +256,10 @@ fusion.sass(['src/css/a.scss', 'src/css/b.scss']);
 Compile multiple files, and save compiled files to new position with same structure:
 
 ```js
-// Generate *.css / *.min.css / *.css.map to /dist/**
-fusion.sass('src/css/**/*.scss', 'dist/');
+// Generate *.cssProcessor / *.min.cssProcessor / *.cssProcessor.map to /dist/**
+fusion.sassProcessor('src/cssProcessor/**/*.scss', 'dist/');
 
-fusion.sass(['src/css/a.scss', 'src/css/b.scss'], 'dist/');
+fusion.sassProcessor(['src/cssProcessor/a.scss', 'src/cssProcessor/b.scss'], 'dist/');
 ```
 
 ### Multiple source file and one dest file.
@@ -267,16 +267,16 @@ fusion.sass(['src/css/a.scss', 'src/css/b.scss'], 'dist/');
 Use `gulp-concat` to merge all files to one file and compile to one file.
 
 ```js
-// Merge all *.scss files and generate app.css / app.min.css / app.css.map to /dist.
-fusion.sass('src/css/**/*.scss', 'dist/app.css');
+// Merge all *.scss files and generate app.cssProcessor / app.min.cssProcessor / app.cssProcessor.map to /dist.
+fusion.sassProcessor('src/cssProcessor/**/*.scss', 'dist/app.cssProcessor');
 
-fusion.sass(['src/css/a.scss', 'src/css/b.scss'], 'dist/app.css');
+fusion.sassProcessor(['src/cssProcessor/a.scss', 'src/cssProcessor/b.scss'], 'dist/app.cssProcessor');
 ```
 
 ### Add Options
 
 ```js
-fusion.sass('src/css/**/*.scss', 'dist/', {minify: false});
+fusion.sassProcessor('src/cssProcessor/**/*.scss', 'dist/', {minify: false});
 ```
 
 ### Pipe
@@ -348,7 +348,7 @@ Available (default) options:
 - `autoprefixer`: true
 - `rebase`: true (rewrite `url()` to dest folder)
 
-### `sass(source, dest, options)`
+### `sassProcessor(source, dest, options)`
 
 Compile SASS/SCSS to CSS file and create sourcemap and minified file.
 

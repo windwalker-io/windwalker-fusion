@@ -13,7 +13,7 @@ try {
 } catch (e) {
   const chalk = require('chalk');
   console.error(e);
-  console.error(`\nPlease run "${chalk.yellow('yarn add vue vue-loader vue-style-loader vue-template-compiler css-loader sass-loader')}" first.\n`);
+  console.error(`\nPlease run "${chalk.yellow('yarn add vue vue-loader vue-style-loader vue-template-compiler cssProcessor-loader sassProcessor-loader')}" first.\n`);
   process.exit(255);
 }
 
@@ -65,15 +65,15 @@ class VueProcessor extends WebpackProcessor {
             test: /\.scss$/,
             use: [
               'vue-style-loader',
-              'css-loader',
-              'sass-loader'
+              'cssProcessor-loader',
+              'sassProcessor-loader'
             ],
           },
           {
-            test: /\.css$/,
+            test: /\.cssProcessor$/,
             use: [
               'vue-style-loader',
-              'css-loader'
+              'cssProcessor-loader'
             ],
           },
           {

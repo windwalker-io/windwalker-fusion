@@ -8,14 +8,14 @@ fusion.task('main', () => {
   // fusion.watch('test/less/**/*.less');
   fusion.watch('test/es6/**/*.js');
   // fusion.watch('test/ts/**/*.ts');
-  fusion.watch('test/src/**/*.css');
+  fusion.watch('test/src/**/*.cssProcessor');
   //
   fusion.sass('test/scss/*.scss', 'test/css/');
-  //fusion.less('test/less/*.less', 'test/css/');
+  //fusion.less('test/less/*.less', 'test/cssProcessor/');
   ////
-  //fusion.css('test/src/*.css', 'test/css/merge.css');
-  //fusion.css('test/src/deep/*.css', 'test/css/deep.css');
-  // fusion.sass('test/src/deep/*.scss', 'test/css/deep-scss.css');
+  //fusion.cssProcessor('test/src/*.cssProcessor', 'test/cssProcessor/merge.cssProcessor');
+  //fusion.cssProcessor('test/src/deep/*.cssProcessor', 'test/cssProcessor/deep.cssProcessor');
+  // fusion.sassProcessor('test/src/deep/*.scss', 'test/cssProcessor/deep-scss.cssProcessor');
   // fusion.js('test/es6/*.js', 'test/js/yoo.js');
   // fusion.copy('test/es6/**', 'test/new/');
 

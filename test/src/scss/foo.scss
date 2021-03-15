@@ -1,0 +1,13 @@
+// Part of fusion file.
+
+$color: #fff;
+
+.foo {
+  &__bar {
+    color: $color
+  }
+
+  &__yoo {
+    background-color: $color;
+  }
+}

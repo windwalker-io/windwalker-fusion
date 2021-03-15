@@ -8,20 +8,26 @@
 import errorHandler from 'gulp-error-handle';
 import { debounce } from 'lodash-es';
 import { config } from './config.js';
-import notifier from 'node-notifier';
 import { cliInput } from './utilities/cli.js';
 import path from 'path';
+import { notify } from './utilities/notifier.js';
 
 export function prepareStream(stream) {
   stream = stream
     .pipe(errorHandler((e) => {
       config.notifySuccess = false;
 
-      notifier.notify({
+      notify({
         title: 'Windwalker Fusion',
         message: '[Something Error] Please see terminal to know more information.',
         icon: path.resolve() + '/../resources/img/error.png'
       });
+
+      // notifier.notify({
+      //   title: 'Windwalker Fusion',
+      //   message: '[Something Error] Please see terminal to know more information.',
+      //   icon: path.resolve() + '/../resources/img/error.png'
+      // });
     }))
     .on('end', e => {
       postTask();
@@ -46,7 +52,7 @@ export function postTask() {
 
 const notifySuccess = debounce(() => {
   // if (config.notifySuccess) {
-  notifier.notify({
+  notify({
     title: 'Windwalker Fusion',
     message: 'Build success',
     icon: path.resolve() + '/../resources/img/windwalker.png',

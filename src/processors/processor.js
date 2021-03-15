@@ -14,7 +14,7 @@ export default class Processor {
 
   stream;
   source;
-  options;
+  options = {};
 
   constructor(source, options = {}) {
     this.source = source;
@@ -47,20 +47,42 @@ export default class Processor {
     return src(source, { follow: true });
   }
 
-  process(dest, options = {}) {
+  process(dest) {
     dest = extractDest(dest);
 
-    const stream = this.doProcess(dest, options);
+    this.doProcess(dest, this.options);
 
-    return postStream(stream);
+    return postStream(this.stream);
   }
 
+  /**
+   * Do process.
+   * @param dest    {{merge: string, file: string, path: string, samePosition: boolean}}
+   * @param options {object}
+   */
   doProcess(dest, options = {}) {
     throw new Error('Please extends this method.');
   }
 
+  /**
+   *
+   * @param handler
+   * @returns {this}
+   */
   pipe(handler) {
     this.stream = this.stream.pipe(handler);
+
+    return this;
+  }
+
+  pipeIf(bool, callback) {
+    if (typeof callback !== 'function') {
+      throw new Error('pipeIf() needs 2nd argument is function.');
+    }
+
+    if (bool) {
+      this.pipe(callback());
+    }
 
     return this;
   }
