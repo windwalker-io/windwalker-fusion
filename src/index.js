@@ -5,7 +5,7 @@
  * @license    __LICENSE__
  */
 
-export * from './base/watch.js';
+export * from './base/base.js';
 export * from './config.js';
 export * from './lifecycles.js';
 export * from './processors/css.js';

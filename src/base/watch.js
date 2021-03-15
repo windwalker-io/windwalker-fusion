@@ -10,21 +10,27 @@ import EventEmitter from 'events';
 
 const FUNC_REGEX = /at\s{1}(?<func>\w+)\s{1}\([\W\w]+?\)/g;
 
-const watches = [];
-let startWatching = false;
+export const watching = {
+  tasks: [],
+  start: false
+};
 
-export function watch(glob, opt, fn) {
-  if (arguments.length === 1) {
-    const currentTask = findCurrentTask(new Error());
-    
-    if (!startWatching && cliInput['watch']) {
-      watches.push({
-        task: currentTask,
-        glob: glob
-      });
+export async function watch(glob, opt, fn) {
+  if (
+    (typeof opt === 'object' && fn == null)
+      || (opt == null && fn == null)
+  ) {
+    if (cliInput['watch'] && !watching.start) {
+      const task = findCurrentTask(new Error());
+
+      const fn = gulp._registry._tasks[task];
+
+      if (!fn) {
+        throw new Error(`Unable to find task: "${task}" from gulp registry.`);
+      }
+
+      watching.tasks.push({ task, args: [ glob, opt, fn ] });
     }
-
-    console.log(watches);
 
     return new EventEmitter();
   }
@@ -37,10 +43,11 @@ export function watch(glob, opt, fn) {
  * @returns {string}
  */
 function findCurrentTask(e) {
-  // Drop first
+  // Drop first and second
+  FUNC_REGEX.exec(e.stack);
   FUNC_REGEX.exec(e.stack);
 
-  // Get second
+  // Get third
   const match = FUNC_REGEX.exec(e.stack)
   return match[1];
 }

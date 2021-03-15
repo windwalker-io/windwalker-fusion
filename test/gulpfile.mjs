@@ -14,14 +14,54 @@ css.description = 'Build CSS';
 css.flags = {
   '--prod': 'Build prod'
 };
-function css(cb) {
+
+async function css(cb) {
   watch(['./src/css/**/*.css']);
+
+  console.log('Hello');
 
   src('./src/css/**/*.css')
     .pipe(dest('./dest/css/'));
 
   cb();
 }
+
+// export function css3() {
+//   return watch(
+//     [
+//       '',
+//       '',
+//       ''
+//     ],
+//     [
+//       vue(),
+//       vue(),
+//       vue()
+//     ]
+//   )
+// }
+//
+// export const g = function () {
+//
+// } |> watch;
+//
+// export const css = async cb => {
+//   cb();
+//   cb = await watch(['./src/css/**/*.css']);
+//
+//   console.log('Hello');
+//
+//   src('./src/css/**/*.css')
+//     .pipe(dest('./dest/css/'));
+//
+//   cb();
+// };
+//
+// export const css2 = {
+//   func() {
+//
+//   }
+// }.func;
 
 export function clean() {
   return del(
@@ -31,7 +71,6 @@ export function clean() {
     ]
   );
 }
-
 
 export default css;
 
