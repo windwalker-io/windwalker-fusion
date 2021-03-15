@@ -1,0 +1,31 @@
+Arguments: 
+  /Users/simon/.nvm/versions/node/v15.11.0/bin/node /usr/local/bin/yarn add typescript
+
+PATH: 
+  /Users/simon/.nvm/versions/node/v15.11.0/bin:/Applications/XAMPP/xamppfiles:/Applications/XAMPP/xamppfiles/bin:/Users/simon/google-cloud-sdk/bin:/usr/local/opt/openssl/bin:/usr/local/opt/bison/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Applications/XAMPP/xamppfiles/htdocs/windwalker/fusion/node_modules/.bin:/Users/simon/.composer/vendor/bin
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  15.11.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Applications/XAMPP/xamppfiles/htdocs/windwalker/fusion/test/package.json: Unexpected end of JSON input
+      at JSON.parse (<anonymous>)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
