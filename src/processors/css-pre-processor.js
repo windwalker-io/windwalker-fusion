@@ -6,24 +6,32 @@
  */
 
 import autoprefixer from 'gulp-autoprefixer';
+import cleanCSS from 'gulp-clean-css';
 import concat from 'gulp-concat';
 import eol from 'gulp-eol';
 import filter from 'gulp-filter';
 import rename from 'gulp-rename';
 import rewriteCSS from 'gulp-rewrite-css';
-import cleanCSS from 'gulp-clean-css';
 import sourcemaps from 'gulp-sourcemaps';
 import { dest as toDest } from '../base/base.js';
 import { logError } from '../utilities/error.js';
+import { merge } from '../utilities/utilities.js';
 import Processor from './processor.js';
 
 export default class CssPreProcessor extends Processor {
-  static defaultOptions = {
-    sourcemap: true,
-    autoprefixer: true,
-    minify: true,
-    rebase: false
-  };
+
+  prepareOptions(options = {}) {
+    return merge(
+      {},
+      {
+        sourcemap: true,
+        autoprefixer: true,
+        minify: true,
+        rebase: false
+      },
+      options
+    );
+  }
 
   compile() {
     throw new Error('Please implement this method.');

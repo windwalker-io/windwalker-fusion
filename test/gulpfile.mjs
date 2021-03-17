@@ -6,19 +6,35 @@
  */
 
 import del from 'del';
-import { dest, series, src, watch, css as cssTask, sass } from '../src/index.js';
+import { css as cssTask, dest, series, src, watch, sass, js as jsTask, babel as babelTask } from '../src/index.js';
 
 css.description = 'Build CSS';
 export default async function css() {
-  watch(['./src/cssProcessor/**/*.cssProcessor']);
+  watch(['./src/css/**/*.css']);
 
-  cssTask('./src/cssProcessor/**/*.cssProcessor', './dest/css/moved/');
-  sass('./src/scss/**/*.scss', './dest/css/scss/')
+  cssTask('./src/css/**/*.css', './dest/css/moved/');
+  // sass('./src/scss/**/*.scss', './dest/css/scss/');
+}
+export async function js() {
+  watch(['./src/css/**/*.css']);
+
+  jsTask('./src/js/**/*.js', './dest/js/simple/');
+  jsTask('./src/js/**/*.js', './dest/js/simple/merged.js');
+  jsTask(
+    ['./src/js/foo.js', './src/js/bar.js'],
+    './dest/js/simple/merged2.js'
+  );
+  // sass('./src/scss/**/*.scss', './dest/css/scss/');
+}
+export async function babel() {
+  watch(['./src/css/**/*.css']);
+
+  babelTask('./src/js/**/*.js', './dest/js/babel/');
 }
 
 export const wa = async () => [
-  watch('./src/cssProcessor/**/*.cssProcessor'),
-  src('./src/cssProcessor/**/*.cssProcessor').pipe(dest('./dest/css/'))
+  watch('./src/css/**/*.css'),
+  src('./src/css/**/*.css').pipe(dest('./dest/css/'))
 ];
 
 // export function css3() {

@@ -18,24 +18,16 @@ export default class Processor {
 
   constructor(source, options = {}) {
     this.source = source;
-    this.options = this.preprocessOptions(options);
+    this.options = this.prepareOptions(options);
 
-    if (typeof source === 'string') {
-      source = [source];
-    }
-
-    this.stream = this.preprocessSourceToStream(source, this.options);
+    this.stream = this.prepareSourceToStream(source, this.options);
   }
 
-  preprocessOptions(options = {}) {
-    return merge(
-      {},
-      this.constructor.defaultOptions || {},
-      options
-    );
+  prepareOptions(options = {}) {
+    return options;
   }
 
-  preprocessSourceToStream(source, options = {}) {
+  prepareSourceToStream(source, options = {}) {
     if (typeof source === 'string') {
       source = [source];
     }
@@ -66,11 +58,17 @@ export default class Processor {
 
   /**
    *
-   * @param handler
+   * @param handlers
    * @returns {this}
    */
-  pipe(handler) {
-    this.stream = this.stream.pipe(handler);
+  pipe(handlers) {
+    if (!Array.isArray(handlers)) {
+      handlers = [ handlers ];
+    }
+
+    handlers.forEach((handler) => {
+      this.stream = this.stream.pipe(handler);
+    });
 
     return this;
   }

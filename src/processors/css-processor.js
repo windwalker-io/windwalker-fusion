@@ -13,18 +13,25 @@ import rename from 'gulp-rename';
 import rewriteCSS from 'gulp-rewrite-css';
 import { dest as toDest } from '../base/base.js';
 import { logError } from '../utilities/error.js';
+import { merge } from '../utilities/utilities.js';
 import Processor from './processor.js';
 
-export default function cssProcessor(source, dest, options = {}) {
-  return new CssProcessor(source).process(dest, options);
+export default function css(source, dest, options = {}) {
+  return new CssProcessor(source, options).process(dest);
 }
 
 export class CssProcessor extends Processor {
-  static defaultOptions = {
-    autoprefixer: true,
-    minify: true,
-    rebase: true
-  };
+  prepareOptions(options = {}) {
+    return merge(
+      {},
+      {
+        autoprefixer: true,
+        minify: true,
+        rebase: true
+      },
+      options
+    );
+  }
 
   doProcess(dest, options = {}) {
     this.pipeIf(options.rebase, () => rewriteCSS({ destination: dest.path }))
@@ -38,9 +45,11 @@ export class CssProcessor extends Processor {
         ).on('error', logError())
       )
       .pipe(toDest(dest.path))
-      .pipe(filter('**/*.cssProcessor'))
-      .pipe(rename({ suffix: '.min' }))
-      .pipeIf(options.minify, () => cleanCSS({ compatibility: 'ie11' }))
-      .pipe(toDest(dest.path));
+      .pipeIf(options.minify, () => [
+        filter('**/*.css'),
+        rename({ suffix: '.min' }),
+        cleanCSS({ compatibility: 'ie11' }),
+        toDest(dest.path)
+      ]);
   }
 }

@@ -8,8 +8,8 @@
 import CssPreProcessor from './css-pre-processor.js';
 import { default as gulpSass } from 'gulp-sass'
 
-export default function sassProcessor(source, dest, options = {}) {
-  return new SassProcessor(source).process(dest, options);
+export default function sass(source, dest, options = {}) {
+  return new SassProcessor(source, options).process(dest);
 }
 
 export class SassProcessor extends CssPreProcessor {
