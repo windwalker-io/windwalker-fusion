@@ -52,6 +52,10 @@ export class BabelProcessor extends JsProcessor {
         babelOptions.addPlugin('@babel/plugin-transform-modules-systemjs');
         break;
     }
+    
+    if (options.targets) {
+      babelOptions.options.presets[0][1].targets = options.targets;
+    }
 
     return options;
   }

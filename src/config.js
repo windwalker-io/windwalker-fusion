@@ -16,12 +16,12 @@ export const config = {
 };
 
 export const MinifyOption = {
-  NONE: Symbol('none'),
-  SAME_FILE: Symbol('same_file'),
-  SEPARATE_FILE: Symbol('separate_file'),
+  NONE: 'none',
+  SAME_FILE: 'same_file',
+  SEPARATE_FILE: 'separate_file',
   DEFAULT: null
 };
 
-MinifyOption.DEFAULT = process.env.NODE_ENV.trim() === 'production'
+MinifyOption.DEFAULT = process.env.NODE_ENV?.trim() === 'production'
   ? MinifyOption.SAME_FILE
   : MinifyOption.NONE;

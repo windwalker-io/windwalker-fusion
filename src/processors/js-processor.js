@@ -8,10 +8,11 @@ import concat from 'gulp-concat';
 import eol from 'gulp-eol';
 import filter from 'gulp-filter';
 import rename from 'gulp-rename';
-import terser from 'gulp-terser';
 import sourcemaps from 'gulp-sourcemaps';
 import stripComment from 'gulp-strip-comments';
-import { dest as toDest, src } from '../base/base.js';
+import terser from 'gulp-terser';
+import { dest as toDest } from '../base/base.js';
+import { MinifyOption } from '../config.js';
 import { merge } from '../utilities/utilities.js';
 import Processor from './processor.js';
 
@@ -27,9 +28,7 @@ export class JsProcessor extends Processor {
       {},
       {
         sourcemap: true,
-        minify: true,
-        rename: false,
-        suffix: null
+        minify: MinifyOption.DEFAULT
       },
       options
     );
@@ -60,26 +59,19 @@ export class JsProcessor extends Processor {
       .pipeIf(options.sourcemap, () => sourcemaps.init())
       .pipeIf(dest.merge, () => concat(dest.file))
       .compile(dest, options)
-      .pipeIf(options.rename, () => rename(options.rename));
-
-    if (dest.merge) {
-      this.pipeIf(options.sourcemap, () => sourcemaps.write('.'))
-        .pipe(toDest(dest.path));
-    } else if (!dest.samePosition || options.rename) {
-      this.pipeIf(options.sourcemap, () => sourcemaps.write('.'))
-        .pipe(toDest(dest.path));
-    }
-
-    // Minify file so we remove source maps
-    this.pipe(filter('**/*.js'))
-      .pipeIf(options.minify, () => [
-        stripComment(),
-        terser().on('error', function (e) {
-          console.error(e.toString());
-          this.emit('end');
-        }),
-        rename({ suffix: '.min' })
-      ])
+      .pipeIf(options.sourcemap, () => sourcemaps.write('.'))
+      .pipe(toDest(dest.path))
+      .pipeIf(options.minify === MinifyOption.SEPARATE_FILE, () => {
+        this.pipe(filter('**/*.js'))
+          .pipe(stripComment())
+          .pipe(
+            terser().on('error', function (e) {
+              console.error(e.toString());
+              this.emit('end');
+            })
+          )
+          .pipe(rename({ suffix: '.min' }));
+      })
       .pipe(toDest(dest.path));
   }
 }

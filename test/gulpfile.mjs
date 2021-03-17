@@ -11,6 +11,7 @@ import {
   css as cssTask,
   dest,
   js as jsTask,
+  ts as tsTask,
   MinifyOption,
   series,
   src,
@@ -30,7 +31,7 @@ export async function js() {
   watch(['./src/css/**/*.css']);
 
   jsTask('./src/js/**/*.js', './dest/js/simple/');
-  jsTask('./src/js/**/*.js', './dest/js/simple/merged.js');
+  jsTask('./src/js/**/*.js', './dest/js/simple/merged.js', { minify: 'same_file' });
   jsTask(
     ['./src/js/foo.js', './src/js/bar.js'],
     './dest/js/simple/merged2.js'
@@ -41,7 +42,13 @@ export async function js() {
 export async function babel() {
   watch(['./src/css/**/*.css']);
 
-  babelTask('./src/js/**/*.js', './dest/js/babel/', { babel: new BabelOptions() });
+  babelTask('./src/js/**/*.js', './dest/js/babel/', { module: 'systemjs'});
+}
+
+export async function ts() {
+  watch(['./src/css/**/*.css']);
+
+  tsTask('./src/ts/**/*.ts', './dest/ts/', { ts: { target: 'es6' }});
 }
 
 export const wa = async () => [

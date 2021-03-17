@@ -31,6 +31,12 @@ declare namespace FusionUtilitiesBabel {
     addPreset(plugin: string | Array<any> | object, options?: object): this;
 
     addPlugin(plugin: string | Array<any> | object, options?: object): this;
+
+    reset(): this;
+
+    resetPresets(): this;
+
+    resetPlugins(): this;
   }
 
   export function babelEmptyOptions(): BabelOptions;

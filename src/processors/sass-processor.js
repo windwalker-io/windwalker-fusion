@@ -18,5 +18,6 @@ export class SassProcessor extends CssPreProcessor {
       gulpSass({ style: 'expanded' })
         .on('error', gulpSass.logError)
     );
+    return this;
   }
 }

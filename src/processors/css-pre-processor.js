@@ -14,6 +14,7 @@ import rename from 'gulp-rename';
 import rewriteCSS from 'gulp-rewrite-css';
 import sourcemaps from 'gulp-sourcemaps';
 import { dest as toDest } from '../base/base.js';
+import { MinifyOption } from '../config.js';
 import { logError } from '../utilities/error.js';
 import { merge } from '../utilities/utilities.js';
 import Processor from './processor.js';
@@ -26,7 +27,7 @@ export default class CssPreProcessor extends Processor {
       {
         sourcemap: true,
         autoprefixer: true,
-        minify: true,
+        minify: MinifyOption.DEFAULT,
         rebase: false
       },
       options
@@ -40,26 +41,31 @@ export default class CssPreProcessor extends Processor {
   doProcess(dest, options = {}) {
     this.pipe(eol('\n', true))
       .pipeIf(options.sourcemap, () => sourcemaps.init())
-      .pipeIf(dest.merge, () => concat(dest.file));
-
-    this.compile();
-
-    this.pipeIf(
+      .pipeIf(dest.merge, () => concat(dest.file))
+      .compile()
+      .pipeIf(
       options.rebase && !dest.samePosition,
       () => rewriteCSS({ destination: dest.path })
       )
       .pipeIf(
         options.autoprefixer,
-        () => autoprefixer('last 3 version', 'safari 5', 'ie 8', 'ie 9').on('error', logError())
+        () => autoprefixer('last 3 version', 'safari 5', 'ie 8', 'ie 9')
+          .on('error', logError())
+      )
+      .pipeIf(
+        options.minify === MinifyOption.SAME_FILE,
+        () => () => cleanCSS({ compatibility: 'ie11' })
       )
       .pipeIf(
         options.sourcemap,
         () => sourcemaps.write('.')
       )
       .pipe(toDest(dest.path))
-      .pipe(filter('**/*.cssProcessor'))
-      .pipe(rename({ suffix: '.min' }))
-      .pipeIf(options.minify, () => cleanCSS({ compatibility: 'ie11' }))
-      .pipe(toDest(dest.path));
+      .pipeIf(options.minify === MinifyOption.SEPARATE_FILE, () => {
+        this.pipe(filter('**/*.css'))
+          .pipe(rename({ suffix: '.min' }))
+          .pipe(cleanCSS({ compatibility: 'ie11' }))
+          .pipe(toDest(dest.path));
+      });
   }
 }

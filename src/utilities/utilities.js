@@ -49,6 +49,6 @@ export function extractDest(dest) {
     samePosition,
     file: destFile,
     path: destPath
-  }
+  };
 }
 

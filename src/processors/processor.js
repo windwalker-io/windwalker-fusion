@@ -79,7 +79,11 @@ export default class Processor {
     }
 
     if (bool) {
-      this.pipe(callback());
+      const r = callback();
+
+      if (r) {
+        this.pipe(callback());
+      }
     }
 
     return this;

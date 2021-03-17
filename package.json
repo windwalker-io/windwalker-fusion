@@ -8,11 +8,6 @@
   "author": "Simon Asika",
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "^7.13.10",
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/plugin-proposal-decorators": "^7.13.5",
-    "@babel/plugin-proposal-optional-chaining": "^7.13.8",
-    "@babel/preset-env": "^7.13.10",
     "@types/babel__core": "^7.1.13",
     "@types/gulp": "^4.0.8",
     "chalk": "^4.1.0",
@@ -37,6 +32,13 @@
     "plugin-error": "^1.0.1"
   },
   "devDependencies": {
-    "gulp-babel": "^8.0.0"
+    "gulp-babel": "^8.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-proposal-decorators": "^7.13.5",
+    "@babel/plugin-proposal-optional-chaining": "^7.13.8",
+    "@babel/preset-env": "^7.13.10",
+    "typescript": "^4.2.3"
   }
 }

@@ -5,8 +5,16 @@
  * @license    __LICENSE__
  */
 
-export const Foo = {
+@decorator('Hello')
+export class Foo {
+  flower = 'Sakura';
+  static car = 'Tesla';
+
   constructor() {
     //
   }
-};
+}
+
+function decorator(value) {
+  return () => value;
+}
