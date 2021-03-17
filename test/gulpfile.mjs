@@ -6,7 +6,17 @@
  */
 
 import del from 'del';
-import { css as cssTask, dest, series, src, watch, sass, js as jsTask, babel as babelTask } from '../src/index.js';
+import {
+  babel as babelTask,
+  css as cssTask,
+  dest,
+  js as jsTask,
+  MinifyOption,
+  series,
+  src,
+  watch
+} from '../src/index.js';
+import { babelEmptyOptions, BabelOptions } from '../src/utilities/babel.js';
 
 css.description = 'Build CSS';
 export default async function css() {
@@ -15,6 +25,7 @@ export default async function css() {
   cssTask('./src/css/**/*.css', './dest/css/moved/');
   // sass('./src/scss/**/*.scss', './dest/css/scss/');
 }
+
 export async function js() {
   watch(['./src/css/**/*.css']);
 
@@ -26,10 +37,11 @@ export async function js() {
   );
   // sass('./src/scss/**/*.scss', './dest/css/scss/');
 }
+
 export async function babel() {
   watch(['./src/css/**/*.css']);
 
-  babelTask('./src/js/**/*.js', './dest/js/babel/');
+  babelTask('./src/js/**/*.js', './dest/js/babel/', { babel: new BabelOptions() });
 }
 
 export const wa = async () => [

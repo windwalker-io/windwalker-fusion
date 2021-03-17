@@ -14,3 +14,14 @@ export const config = {
     port: null
   }
 };
+
+export const MinifyOption = {
+  NONE: Symbol('none'),
+  SAME_FILE: Symbol('same_file'),
+  SEPARATE_FILE: Symbol('separate_file'),
+  DEFAULT: null
+};
+
+MinifyOption.DEFAULT = process.env.NODE_ENV.trim() === 'production'
+  ? MinifyOption.SAME_FILE
+  : MinifyOption.NONE;

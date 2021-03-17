@@ -12,6 +12,7 @@ import filter from 'gulp-filter';
 import rename from 'gulp-rename';
 import rewriteCSS from 'gulp-rewrite-css';
 import { dest as toDest } from '../base/base.js';
+import { MinifyOption } from '../config.js';
 import { logError } from '../utilities/error.js';
 import { merge } from '../utilities/utilities.js';
 import Processor from './processor.js';
@@ -26,7 +27,7 @@ export class CssProcessor extends Processor {
       {},
       {
         autoprefixer: true,
-        minify: true,
+        minify: MinifyOption.DEFAULT,
         rebase: true
       },
       options
@@ -44,8 +45,9 @@ export class CssProcessor extends Processor {
           'ie 9-11'
         ).on('error', logError())
       )
+      .pipeIf(options.minify === MinifyOption.SAME_FILE, () => cleanCSS({ compatibility: 'ie11' }))
       .pipe(toDest(dest.path))
-      .pipeIf(options.minify, () => [
+      .pipeIf(options.minify === MinifyOption.SEPARATE_FILE, () => [
         filter('**/*.css'),
         rename({ suffix: '.min' }),
         cleanCSS({ compatibility: 'ie11' }),

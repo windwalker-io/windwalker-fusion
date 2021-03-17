@@ -25,14 +25,20 @@ export function babelEmptyOptions() {
   return new BabelOptions();
 }
 
-class BabelOptions {
-  presets = [];
+export class BabelOptions {
+  options = {
+    presets: [],
+    plugins: []
+  };
 
-  plugins = [];
+  constructor(options = {}) {
+  }
 
   reset() {
-    this.presets = [];
-    this.plugins = [];
+    this.options = {
+      presets: [],
+      plugins: []
+    };
   }
 
   addPlugin(plugin, options = null) {
@@ -40,7 +46,7 @@ class BabelOptions {
       plugin = [plugin, options];
     }
 
-    this.plugins.push(plugin);
+    this.options.plugins.push(plugin);
     return this;
   }
 
@@ -49,14 +55,11 @@ class BabelOptions {
       preset = [preset, options];
     }
 
-    this.presets.push(preset);
+    this.options.presets.push(preset);
     return this;
   }
 
   get() {
-    return {
-      presets: this.presets,
-      plugins: this.plugins
-    };
+    return this.options;
   }
 }
