@@ -1,0 +1,63 @@
+/**
+ * Part of fusion project.
+ *
+ * @copyright  Copyright (C) 2021 .
+ * @license    __LICENSE__
+ */
+
+import concat from 'gulp-concat';
+import eol from 'gulp-eol';
+import { dest as toDest } from '../base/base.js';
+import { merge } from '../utilities/utilities.js';
+import { webpackBasicConfig } from '../utilities/webpack.js';
+import JsProcessor from './js-processor.js';
+
+let webpackStream;
+let named;
+
+try {
+  named = (await import('vinyl-named-with-path')).default;
+  webpackStream = (await import('webpack-stream')).default;
+} catch (e) {
+  const chalk = (await import('chalk')).default;
+  console.error(chalk.red(e.message));
+  console.error(`\nPlease run "${chalk.yellow('yarn add webpack-stream webpack-comment-remover-loader vinyl-named-with-path babel-loader')}" first.\n`);
+  process.exit(255);
+}
+
+export default class WebpackProcessor extends JsProcessor {
+  async prepareOptions(options) {
+    if (options.override != null) {
+      options.webpack = options.override;
+    } else {
+      options.webpack = options.webpack || this.getWebpackConfig();
+    }
+
+    if (options.merge != null) {
+      options.webpack = merge(
+        this.getWebpackConfig(),
+        options.merge
+      );
+    }
+
+    return super.prepareOptions(options);
+  }
+
+  compile(dest, options) {
+    return this.pipe(named())
+      .pipe(
+        webpackStream(options.webpack)
+      );
+  }
+
+  doProcess(dest, options) {
+    this.pipe(eol('\n'))
+      .compile(dest, options)
+      .pipeIf(dest.merge, () => concat(dest.file))
+      .pipe(toDest(dest.path));
+  }
+
+  async getWebpackConfig() {
+    return webpackBasicConfig();
+  }
+}

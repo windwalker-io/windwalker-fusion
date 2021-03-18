@@ -1,12 +1,6 @@
-// Type definitions for Gulp 4.0
-// Project: http://gulpjs.com
-// Definitions by: Drew Noakes <https://drewnoakes.com>
-//                 Juan Arroyave <http://jarroyave.co>
-//                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { WatchMethod } from 'gulp';
 import { Settings } from 'gulp-typescript';
+import { WebpackOptionsNormalized } from 'webpack';
 
 declare namespace Fusion {
   export interface DestOptions {
@@ -55,6 +49,12 @@ declare namespace Fusion {
     ts: Settings
   }
 
+  export interface WebpackOptions extends JsOptions {
+    webpack?: WebpackOptionsNormalized;
+    override?: WebpackOptionsNormalized;
+    merge?: WebpackOptionsNormalized;
+  }
+
   export const watch: WatchMethod;
   export const css: taskProcessor<CssOptions>;
   export const CssProcessor: Processor<CssOptions>;
@@ -66,7 +66,8 @@ declare namespace Fusion {
   export const BabelProcessor: Processor<BabelOptions>;
   export const ts: taskProcessor<TsOptions>;
   export const TsProcessor: Processor<TsOptions>;
-
+  export const webpack: taskProcessor<WebpackOptions>;
+  export const WebpackProcessor: Processor<WebpackOptions>;
 }
 
 export = Fusion;

@@ -23,7 +23,7 @@ export default class Processor {
     this.stream = this.prepareSourceToStream(source, this.options);
   }
 
-  prepareOptions(options = {}) {
+  async prepareOptions(options = {}) {
     return options;
   }
 
@@ -39,7 +39,7 @@ export default class Processor {
     return src(source, { follow: true });
   }
 
-  process(dest) {
+  async process(dest) {
     dest = extractDest(dest);
 
     this.doProcess(dest, this.options);

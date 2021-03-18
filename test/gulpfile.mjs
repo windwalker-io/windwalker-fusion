@@ -15,7 +15,10 @@ import {
   MinifyOption,
   series,
   src,
-  watch
+  watch,
+  webpack as webpackTask,
+  vue as vueTask,
+  sass
 } from '../src/index.js';
 import { babelEmptyOptions, BabelOptions } from '../src/utilities/babel.js';
 
@@ -24,11 +27,12 @@ export default async function css() {
   watch(['./src/css/**/*.css']);
 
   cssTask('./src/css/**/*.css', './dest/css/moved/');
-  // sass('./src/scss/**/*.scss', './dest/css/scss/');
+  cssTask('./src/css/**/*.css', './dest/css/renamed.css');
+  sass('./src/scss/**/*.scss', './dest/css/scss/');
 }
 
 export async function js() {
-  watch(['./src/css/**/*.css']);
+  watch(['./src/js/**/*.css']);
 
   jsTask('./src/js/**/*.js', './dest/js/simple/');
   jsTask('./src/js/**/*.js', './dest/js/simple/merged.js', { minify: 'same_file' });
@@ -40,13 +44,25 @@ export async function js() {
 }
 
 export async function babel() {
-  watch(['./src/css/**/*.css']);
+  watch(['./src/js/**/*.css']);
 
   babelTask('./src/js/**/*.js', './dest/js/babel/', { module: 'systemjs'});
 }
 
+export async function webpack() {
+  watch(['./src/webpack/**/*.js']);
+
+  webpackTask('./src/webpack/index.js', './dest/webpack/webpack-dest.js');
+}
+
+export async function vue() {
+  watch(['./src/vue/**/*.js']);
+
+  vueTask('./src/vue/index.js', './dest/vue/vue-dest.js');
+}
+
 export async function ts() {
-  watch(['./src/css/**/*.css']);
+  watch(['./src/ts/**/*.css']);
 
   tsTask('./src/ts/**/*.ts', './dest/ts/', { ts: { target: 'es6' }});
 }
@@ -55,43 +71,6 @@ export const wa = async () => [
   watch('./src/css/**/*.css'),
   src('./src/css/**/*.css').pipe(dest('./dest/css/'))
 ];
-
-// export function css3() {
-//   return watch(
-//     [
-//       '',
-//       '',
-//       ''
-//     ],
-//     [
-//       vue(),
-//       vue(),
-//       vue()
-//     ]
-//   )
-// }
-//
-// export const g = function () {
-//
-// } |> watch;
-//
-// export const cssProcessor = async cb => {
-//   cb();
-//   cb = await watch(['./src/cssProcessor/**/*.cssProcessor']);
-//
-//   console.log('Hello');
-//
-//   src('./src/cssProcessor/**/*.cssProcessor')
-//     .pipe(dest('./dest/cssProcessor/'));
-//
-//   cb();
-// };
-//
-// export const css2 = {
-//   func() {
-//
-//   }
-// }.func;
 
 export function clean() {
   return del(

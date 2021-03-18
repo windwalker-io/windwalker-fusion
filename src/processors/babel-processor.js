@@ -8,7 +8,7 @@
 import { babelBasicOptions } from '../utilities/babel.js';
 import { logError } from '../utilities/error.js';
 import { merge } from '../utilities/utilities.js';
-import { JsProcessor } from './js-processor.js';
+import JsProcessor from './js-processor.js';
 
 let gulpBabel;
 
@@ -23,19 +23,15 @@ try {
   process.exit(255);
 }
 
-export default function babel(source, dest, options = {}) {
-  return new BabelProcessor(source, options).process(dest);
-}
-
-export class BabelProcessor extends JsProcessor {
-  prepareOptions(options) {
+export default class BabelProcessor extends JsProcessor {
+  async prepareOptions(options) {
     const babelOptions = babelBasicOptions();
 
     options = merge(
       {
         babel: babelOptions
       },
-      super.prepareOptions(options)
+      await super.prepareOptions(options)
     );
 
     switch (options.module) {

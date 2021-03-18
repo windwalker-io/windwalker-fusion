@@ -18,12 +18,8 @@ import Processor from './processor.js';
 
 // const uglify = gu.default;
 
-export default function js(source, dest, options = {}) {
-  return new JsProcessor(source, options).process(dest);
-}
-
-export class JsProcessor extends Processor {
-  prepareOptions(options = {}) {
+export default class JsProcessor extends Processor {
+  async prepareOptions(options = {}) {
     return merge(
       {},
       {
@@ -33,21 +29,6 @@ export class JsProcessor extends Processor {
       options
     );
   }
-
-  // createStream(source, options = {}) {
-  //   // if (options.minify) {
-  //   //   source.push('!./**/*.min.js');
-  //   // }
-  //   //
-  //   // if (options.suffix) {
-  //   //   source.push(`!./**/*${options.suffix}.js`);
-  //   //   source.push(`!./**/*${options.suffix}.min.js`);
-  //   //
-  //   //   options.rename = {suffix: options.suffix};
-  //   // }
-  //
-  //   return src(source);
-  // }
 
   compile(dest, options) {
     //

@@ -21,7 +21,7 @@ import Processor from './processor.js';
 
 export default class CssPreProcessor extends Processor {
 
-  prepareOptions(options = {}) {
+  async prepareOptions(options = {}) {
     return merge(
       {},
       {

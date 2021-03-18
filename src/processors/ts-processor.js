@@ -15,20 +15,19 @@ import { dest as toDest } from '../base/base.js';
 import { MinifyOption } from '../config.js';
 import { merge } from '../utilities/utilities.js';
 import gulpTs from 'gulp-typescript';
-import { JsProcessor } from './js-processor.js';
+import JsProcessor from './js-processor.js';
 
-export default function ts(source, dest, options = {}) {
-  return new TsProcessor(source, options).process(dest);
-}
-
-export class TsProcessor extends JsProcessor {
-  prepareOptions(options) {
-    options = merge({
-      ts: {
-        declaration: false,
-        target: 'es6'
-      }
-    }, super.prepareOptions(options));
+export default class TsProcessor extends JsProcessor {
+  async prepareOptions(options) {
+    options = merge(
+      {
+        ts: {
+          declaration: false,
+          target: 'es6'
+        }
+      },
+      await super.prepareOptions(options)
+    );
 
     if (options.ts.target.toLocaleLowerCase() === 'es5') {
       options.ts.lib = options.ts.lib || ['es6', 'es7', 'dom', 'DOM.Iterable'];

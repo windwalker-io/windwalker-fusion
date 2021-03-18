@@ -17,12 +17,8 @@ import { logError } from '../utilities/error.js';
 import { merge } from '../utilities/utilities.js';
 import Processor from './processor.js';
 
-export default function css(source, dest, options = {}) {
-  return new CssProcessor(source, options).process(dest);
-}
-
-export class CssProcessor extends Processor {
-  prepareOptions(options = {}) {
+export default class CssProcessor extends Processor {
+  async prepareOptions(options = {}) {
     return merge(
       {},
       {
