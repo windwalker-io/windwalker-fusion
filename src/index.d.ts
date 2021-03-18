@@ -1,6 +1,6 @@
 import { WatchMethod } from 'gulp';
 import { Settings } from 'gulp-typescript';
-import { WebpackOptionsNormalized } from 'webpack';
+import { WebpackOptionsNormalized } from 'webpack/types';
 
 declare namespace Fusion {
   export interface DestOptions {
@@ -14,14 +14,14 @@ declare namespace Fusion {
 
   export type taskProcessor<T> = (source: string | Array<string>,
                                   dest?: string | Array<string>,
-                                  options?: T) => NodeJS.ReadWriteStream;
+                                  options?: T) => Promise<NodeJS.ReadWriteStream>;
 
   export interface Processor<O> {
     options: O;
 
     new(source: string | Array<string>, options?: O);
 
-    process(dest: string | Array<string>);
+    process(dest: string | Array<string>): Promise<NodeJS.ReadWriteStream>;
   }
 
   export interface CssOptions {
@@ -68,6 +68,8 @@ declare namespace Fusion {
   export const TsProcessor: Processor<TsOptions>;
   export const webpack: taskProcessor<WebpackOptions>;
   export const WebpackProcessor: Processor<WebpackOptions>;
+  export const vue: taskProcessor<WebpackOptions>;
+  export const VueProcessor: Processor<WebpackOptions>;
 }
 
 export = Fusion;

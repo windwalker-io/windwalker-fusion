@@ -44,6 +44,7 @@
     "vinyl-named-with-path": "^1.0.0",
     "webpack": "^5.26.3",
     "webpack-comment-remover-loader": "^0.0.3",
-    "webpack-stream": "^6.1.2"
+    "webpack-stream": "^6.1.2",
+    "chokidar": "^3.0.0"
   }
 }

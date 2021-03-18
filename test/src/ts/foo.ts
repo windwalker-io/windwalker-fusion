@@ -5,18 +5,21 @@
  * @license    __LICENSE__
  */
 
-import Bar from './bar';
+// @ts-ignore
+import Bar, { decorator } from './bar';
 
+// @ts-ignore
 @decorator
+// @ts-ignore
 export class Foo {
-  flower = 'Sakura';
-  static car = 'Tesla';
+  flower: string = 'Sakura';
+  static car: string = 'Tesla';
 
   constructor() {
     //
   }
 }
 
-function decorator(value) {
+function decorator(value: Foo): Function {
   return () => value;
 }
