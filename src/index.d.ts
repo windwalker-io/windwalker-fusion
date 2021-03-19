@@ -1,6 +1,6 @@
 import { WatchMethod } from 'gulp';
 import { Settings } from 'gulp-typescript';
-import { WebpackOptionsNormalized } from 'webpack';
+import { WebpackOptionsNormalized } from 'webpack/types';
 
 declare namespace Fusion {
   export interface DestOptions {
@@ -59,8 +59,6 @@ declare namespace Fusion {
     root?: string;
   }
 
-  export const copy: taskProcessor<CssOptions>;
-  export function livereload(source: string | Array<string>, options: any): Promise<NodeJS.ReadWriteStream>;
   export const watch: WatchMethod;
   export const cssTask: taskProcessor<CssOptions>;
   export const CssProcessor: Processor<CssOptions>;
@@ -79,6 +77,3 @@ declare namespace Fusion {
 }
 
 export = Fusion;
-
-// declare const Fusion: Fusion;
-// export = Fusion;

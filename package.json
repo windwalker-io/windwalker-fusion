@@ -54,6 +54,7 @@
     "webpack": "^5.0.0",
     "webpack-chain": "^6.5.1",
     "webpack-comment-remover-loader": "^0.0.3",
-    "webpack-stream": "shama/webpack-stream#235/head"
+    "webpack-stream": "shama/webpack-stream#235/head",
+    "chokidar": "^3.0.0"
   }
 }
