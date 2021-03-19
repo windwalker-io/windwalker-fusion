@@ -10,6 +10,7 @@ export const config = {
   notify: true,
   notifySuccess: true,
   livereload: {
+    start: true,
     host: null,
     port: null
   }

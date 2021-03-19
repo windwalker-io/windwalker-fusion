@@ -18,31 +18,47 @@ export default class Processor {
 
   constructor(source, options = {}) {
     this.source = source;
-    this.options = this.prepareOptions(options);
 
-    this.stream = this.prepareSourceToStream(source, this.options);
+    this.options = options;
+
+    this.prepareStream();
   }
 
   async prepareOptions(options = {}) {
     return options;
   }
 
-  prepareSourceToStream(source, options = {}) {
+  prepareStream() {
+    if (this.stream) {
+      return this;
+    }
+
+    this.stream = this.prepareSourceToStream(this.source, this.options);
+    return this;
+  }
+
+  resetStream() {
+    this.stream = null;
+
+    return this;
+  }
+
+  prepareSourceToStream(source) {
     if (typeof source === 'string') {
       source = [source];
     }
 
-    return prepareStream(this.createStream(source, options));
+    return prepareStream(this.createStream(source));
   }
 
-  createStream(source, options = {}) {
+  createStream(source) {
     return src(source, { follow: true });
   }
 
   async process(dest) {
     dest = extractDest(dest);
 
-    this.doProcess(dest, this.options);
+    this.doProcess(dest, await this.prepareOptions(this.options));
 
     return postStream(this.stream);
   }

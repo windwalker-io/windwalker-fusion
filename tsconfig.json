@@ -7,7 +7,7 @@
     "target": "es2015"
   },
   "include": [
-    "legacy/src/**/*"
+    "test/src/vue/**/*"
   ],
   "exclude": [
     "node_modules",

@@ -18,6 +18,7 @@
     "gulp-eol": "^0.2.0",
     "gulp-error-handle": "^1.0.1",
     "gulp-filter": "^6.0.0",
+    "gulp-livereload": "^4.0.2",
     "gulp-rename": "^2.0.0",
     "gulp-rewrite-css": "^1.1.2",
     "gulp-sass": "^4.1.0",
@@ -36,14 +37,23 @@
     "@babel/plugin-proposal-optional-chaining": "^7.13.8",
     "@babel/preset-env": "^7.13.10",
     "@types/babel__core": "^7.1.13",
+    "@vue/compiler-sfc": "^3.0.7",
     "babel-loader": "^8.2.2",
+    "css-loader": "^5.1.3",
     "del": "^6.0.0",
+    "file-loader": "^6.2.0",
     "gulp-babel": "^8.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
+    "sass-loader": "^11.0.1",
+    "ts-loader": "^8.0.18",
     "typescript": "^4.2.3",
     "vinyl-named-with-path": "^1.0.0",
-    "webpack": "^5.26.3",
+    "vue": "^3.0.7",
+    "vue-loader": "^16.0.0",
+    "vue-style-loader": "^4.1.3",
+    "webpack": "^5.0.0",
+    "webpack-chain": "^6.5.1",
     "webpack-comment-remover-loader": "^0.0.3",
-    "webpack-stream": "^6.1.2"
+    "webpack-stream": "shama/webpack-stream#235/head"
   }
 }

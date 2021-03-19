@@ -11,6 +11,7 @@ import { config } from './config.js';
 import { cliInput } from './utilities/cli.js';
 import path from 'path';
 import { notify } from './utilities/notifier.js';
+import livereload from 'gulp-livereload';
 
 export function prepareStream(stream) {
   stream = stream
@@ -31,6 +32,9 @@ export function prepareStream(stream) {
     }))
     .on('end', e => {
       postTask();
+    })
+    .on('finish', e => {
+      //
     });
 
   return stream;
@@ -38,9 +42,7 @@ export function prepareStream(stream) {
 
 export function postStream(stream) {
   if (cliInput['livereload']) {
-    // const livereload = require('gulp-livereload');
-    //
-    // stream = stream.pipe(livereload(config.livereload));
+    stream = stream.pipe(livereload(config.livereload));
   }
 
   return stream;
@@ -76,3 +78,31 @@ const notifySuccess = debounce(() => {
   //   }
   // }
 }, 300);
+
+export function waitAllEnded(...promises) {
+  const waitQueue = [];
+
+  promises.forEach((promise) => {
+    waitQueue.push(new Promise((resolve) => {
+      promise.then((stream) => {
+        stream.on('end', resolve);
+      });
+    }));
+  });
+
+  return Promise.all(waitQueue);
+}
+
+export function waitFirstEnded(...promises) {
+  const waitQueue = [];
+
+  promises.forEach((promise) => {
+    waitQueue.push(new Promise((resolve) => {
+      promise.then((stream) => {
+        stream.on('end', resolve);
+      });
+    }));
+  });
+
+  return Promise.race(waitQueue);
+}

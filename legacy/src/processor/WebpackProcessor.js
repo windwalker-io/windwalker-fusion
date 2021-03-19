@@ -14,7 +14,7 @@ try {
 } catch (e) {
   const chalk = require('chalk');
   console.error(e);
-  console.error(`\nPlease run "${chalk.yellow('yarn add webpack-stream webpack-comment-remover-loader vinyl-named-with-path babel-loader')}" first.\n`);
+  console.error(`\nPlease run "${chalk.yellow('yarn add webpack-stream webpack-comment-remover-loader vinyl-named-with-path babel-loader ')}" first.\n`);
   process.exit(255);
 }
 

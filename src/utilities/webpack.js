@@ -6,9 +6,10 @@
  */
 
 import { merge } from 'lodash-es';
+import Config from 'webpack-chain';
 import { babelBasicOptions } from './babel.js';
 
-export function webpackBasicConfig() {
+export async function webpackBasicConfig() {
   return {
     mode: process.env.NODE_ENV || 'development',
     output: {
@@ -37,17 +38,19 @@ export function webpackBasicConfig() {
   };
 }
 
-export async function webpackVueConfig() {
-  const VueLoaderPlugin = await getVueLoader();
+export async function webpackVue3Config() {
+  const VueLoaderPlugin = await getVueLoader(3);
 
-  return merge(webpackBasicConfig(), {
+  return merge(await webpackBasicConfig(), {
     // devtool: 'eval-source-map',
     // ensure we are using the version of Vue that supports templates
     resolve: {
       alias: {
-        'vue$': 'vue/dist/vue.esm.js'
+        'vue$': '@vue/runtime-dom',
+        'vuex': 'vuex/dist/vuex.esm-bundler',
+        '@': '.' // Will be overwrite when compile
       },
-      extensions: ['*', '.js', '.vue', '.json']
+      extensions: ['*', '.js', '.vue', '.json', '.ts']
     },
     module: {
       rules: [
@@ -60,7 +63,7 @@ export async function webpackVueConfig() {
           ],
         },
         {
-          test: /\.cssProcessor$/,
+          test: /\.css$/,
           use: [
             'vue-style-loader',
             'css-loader'
@@ -70,9 +73,7 @@ export async function webpackVueConfig() {
           test: /\.vue$/,
           loader: 'vue-loader',
           options: {
-            loaders: {
-            }
-            // other vue-loader options go here
+
           }
         },
         {
@@ -83,12 +84,18 @@ export async function webpackVueConfig() {
           }
         },
         {
+          test: /\.ts$/,
+          loader: "ts-loader",
+          exclude: /(node_modules|bower_components)/,
+          options:{
+            appendTsSuffixTo:[/\.vue/]
+          }
+        },
+        {
           test: /\.m?js$/,
           exclude: /(node_modules|bower_components)/,
-          use: [{
-            loader: 'babel-loader',
-            options: babelBasicOptions()
-          }]
+          loader: 'babel-loader',
+          options: babelBasicOptions().get()
         }
       ]
     },
@@ -98,7 +105,7 @@ export async function webpackVueConfig() {
   });
 }
 
-export async function getVueLoader() {
+export async function getVueLoader(version = 3) {
   try {
     const { VueLoaderPlugin } = (await import('vue-loader'));
 
@@ -106,7 +113,7 @@ export async function getVueLoader() {
   } catch (e) {
     const chalk = (await import('chalk')).default;
     console.error(chalk.red(e.message));
-    console.error(`\nPlease run "${chalk.yellow('yarn add vue vue-loader vue-style-loader vue-template-compiler css-loader sass-loader')}" first.\n`);
+    console.error(`\nPlease run "${chalk.yellow('yarn add vue vue-loader vue-style-loader @vue/compiler-sfc css-loader sass-loader file-loader')}" first.\n`);
     process.exit(255);
   }
 }

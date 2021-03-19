@@ -16,4 +16,6 @@ export const registry = gulp.registry;
 export const tree = gulp.tree;
 
 export * from './watch.js';
+export * from './copy.js';
+export * from './livereload.js';
 export * from './override.js';

@@ -27,23 +27,27 @@ try {
 
 export default class WebpackProcessor extends JsProcessor {
   async prepareOptions(options) {
-    if (options.override != null) {
-      options.webpack = options.override;
-    } else {
-      options.webpack = options.webpack || this.getWebpackConfig();
-    }
-
-    if (options.merge != null) {
-      options.webpack = merge(
-        this.getWebpackConfig(),
-        options.merge
-      );
-    }
+    options.webpack = await this.getWebpackConfig();
 
     return super.prepareOptions(options);
   }
 
   compile(dest, options) {
+    if (options.override != null) {
+      if (typeof options.override === 'function') {
+        options.override(options.webpack);
+      } else {
+        options.webpack = options.override;
+      }
+    }
+
+    if (options.merge != null) {
+      options.webpack = merge(
+        options.webpack,
+        options.merge
+      );
+    }
+
     return this.pipe(named())
       .pipe(
         webpackStream(options.webpack)

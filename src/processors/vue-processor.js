@@ -5,8 +5,11 @@
  * @license    __LICENSE__
  */
 
-import { webpackVueConfig } from '../utilities/webpack.js';
+import { clone } from 'lodash-es';
+import { webpackVue3Config } from '../utilities/webpack.js';
 import WebpackProcessor from './webpack-processor.js';
+import path from 'path';
+import fs from 'fs';
 
 export default class VueProcessor extends WebpackProcessor {
   async prepareOptions(options) {
@@ -19,7 +22,31 @@ export default class VueProcessor extends WebpackProcessor {
     return options;
   }
 
+  compile(dest, options) {
+    let src = options.root;
+    
+    if (!src) {
+      src = this.source;
+
+      if (typeof src === 'string') {
+        const i = src.indexOf('*');
+
+        if (i !== -1) {
+          src = src.substr(0, i);
+        } else if (fs.lstatSync(src).isFile()) {
+          src = path.dirname(src);
+        }
+      }
+    }
+
+    if (src && fs.statSync(src).isDirectory()) {
+      options.webpack.resolve.alias['@'] = path.resolve(src);
+    }
+
+    return super.compile(dest, options);
+  }
+
   async getWebpackConfig() {
-    return await webpackVueConfig();
+    return await webpackVue3Config();
   }
 }

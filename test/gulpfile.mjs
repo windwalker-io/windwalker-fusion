@@ -7,28 +7,32 @@
 
 import del from 'del';
 import {
-  babel as babelTask,
-  css as cssTask,
+  babelTask,
+  cssTask,
   dest,
-  js as jsTask,
-  ts as tsTask,
+  jsTask,
+  tsTask,
   MinifyOption,
   series,
   src,
   watch,
-  webpack as webpackTask,
-  vue as vueTask,
-  sass
+  webpackTask,
+  vueTask,
+  sassTask,
+  waitAllEnded
 } from '../src/index.js';
+import { parallel } from '../src/index.js';
 import { babelEmptyOptions, BabelOptions } from '../src/utilities/babel.js';
 
 css.description = 'Build CSS';
 export default async function css() {
   watch(['./src/css/**/*.css']);
 
-  cssTask('./src/css/**/*.css', './dest/css/moved/');
-  cssTask('./src/css/**/*.css', './dest/css/renamed.css');
-  sass('./src/scss/**/*.scss', './dest/css/scss/');
+  return waitAllEnded(
+    cssTask('./src/css/**/*.css', './dest/css/moved/'),
+    cssTask('./src/css/**/*.css', './dest/css/renamed.css'),
+    sassTask('./src/scss/**/*.scss', './dest/css/scss/'),
+  );
 }
 
 export async function js() {
@@ -58,7 +62,10 @@ export async function webpack() {
 export async function vue() {
   watch(['./src/vue/**/*.js']);
 
-  vueTask('./src/vue/index.js', './dest/vue/vue-dest.js');
+  return waitAllEnded(
+    vueTask('./src/vue/main.ts', './dest/vue/vue-dest.js'),
+    vueTask('./src/vue/entries/*.ts', './dest/vue/pages/', { root: './src/vue' })
+  );
 }
 
 export async function ts() {
