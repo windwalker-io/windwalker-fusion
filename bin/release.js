@@ -29,8 +29,8 @@ console.log('>>> Git commit all');
 exec(`git add .`);
 try {
   exec(`git commit -am "Prepare release."`);
-} finally {
-  //
+} catch (e) {
+  console.log(e.message);
 }
 
 console.log(`>>> npm version ${args.join(' ')}`);
