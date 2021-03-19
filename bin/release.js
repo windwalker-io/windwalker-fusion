@@ -10,6 +10,10 @@ import { execSync as exec } from 'child_process';
 
 const args = cliInput._;
 
+if (!args) {
+  throw new Error('Please provide release type (major | minor | patch | premajor | preminor | prepatch | prerelease)')
+}
+
 const help = `
 Usage: release.js -- <arguments for "npm version">
   -b    Branch name to push. 
