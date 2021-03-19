@@ -7,7 +7,7 @@
 
 import fusion from '@windwalker-io/fusion';
 
-export function main() {
+export async function main() {
   // Watch start
   fusion.watch('src/scss/**/*.scss');
   // Watch end

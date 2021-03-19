@@ -16,7 +16,7 @@ Node.js 13 up.
 ```bash
 mkdir myapp && cd myapp
 npm install @windwalker-io/fusion --save-dev
-cp -r node_modules/@windwalker-io/fusion/config/fusionfile.js ./
+cp -r node_modules/@windwalker-io/fusion/config/fusionfile.mjs ./
 ```
 
 The `fusionfile.js` is your configuration on top of Gulp. The example code is:

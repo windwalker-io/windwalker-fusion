@@ -6,15 +6,19 @@
  */
 
 import { spawn } from 'child_process';
-import * as path from 'path';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 export function notify(options = {}) {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
   // Detach notify from Windows wait blocking,
   // see https://github.com/mikaelbr/node-notifier/issues/311
   const child = spawn(
     'node',
     [
-      path.resolve('../bin/notify.js'),
+      path.join(__dirname, '/../../bin/notify.js'),
       `"${Buffer.from(JSON.stringify(options)).toString('base64')}"`
     ],
     {

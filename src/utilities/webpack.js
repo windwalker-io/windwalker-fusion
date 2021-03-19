@@ -6,7 +6,6 @@
  */
 
 import { merge } from 'lodash-es';
-import Config from 'webpack-chain';
 import { babelBasicOptions } from './babel.js';
 
 export async function webpackBasicConfig() {
