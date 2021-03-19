@@ -5,22 +5,22 @@
  * @license    MIT
  */
 
-const input = require('minimist')(process.argv.slice(2));
-const fs = require('fs');
-const exec = require('child_process').execSync;
+import { cliInput } from '../src/utilities/cli.js';
+import { execSync as exec } from 'child_process';
+import fs from 'fs';
 
 const help = `
 Usage: release.js <version>
   -b    Branch name to push. 
 `;
 
-if (input['help'] || input['h']) {
+if (cliInput['help'] || cliInput['h']) {
   console.log(help);
   process.exit(0);
 }
 
-const version = input._[0];
-const branch = input['b'] || 'master';
+const version = cliInput._[0];
+const branch = cliInput['b'] || 'master';
 
 if (!version) {
   console.log('Please provide a version.', "\n", help);
