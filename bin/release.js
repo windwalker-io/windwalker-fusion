@@ -10,8 +10,9 @@ import { execSync as exec } from 'child_process';
 
 const args = cliInput._;
 
-if (!args) {
-  throw new Error('Please provide release type (major | minor | patch | premajor | preminor | prepatch | prerelease)')
+if (!args.length) {
+  console.log('Please provide release type (major | minor | patch | premajor | preminor | prepatch | prerelease)');
+  process.exit(255);
 }
 
 const help = `
