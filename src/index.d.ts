@@ -45,6 +45,10 @@ declare namespace Fusion {
     module?: string | 'systemjs' | 'umd' | 'amd';
   }
 
+  export interface ModuleOptions extends BabelOptions {
+    es5?: string | boolean;
+  }
+
   export interface TsOptions extends JsOptions {
     ts: Settings
   }
@@ -73,8 +77,8 @@ declare namespace Fusion {
   export const JsProcessor: Processor<JsOptions>;
   export const babel: taskProcessor<BabelOptions>;
   export const BabelProcessor: Processor<BabelOptions>;
-  export const module: taskProcessor<BabelOptions>;
-  export const ModuleProcessor: Processor<BabelOptions>;
+  export const module: taskProcessor<ModuleOptions>;
+  export const ModuleProcessor: Processor<ModuleOptions>;
   export const ts: taskProcessor<TsOptions>;
   export const TsProcessor: Processor<TsOptions>;
   export const webpack: taskProcessor<WebpackOptions>;
