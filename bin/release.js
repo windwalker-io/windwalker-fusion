@@ -27,7 +27,11 @@ if (cliInput['help'] || cliInput['h']) {
 
 console.log('>>> Git commit all');
 exec(`git add .`);
-exec(`git commit -am "Prepare release."`);
+try {
+  exec(`git commit -am "Prepare release."`);
+} finally {
+  //
+}
 
 console.log(`>>> npm version ${args.join(' ')}`);
 exec(`npm version ${args.join(' ')}`);
