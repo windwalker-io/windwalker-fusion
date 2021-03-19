@@ -5,7 +5,8 @@
  * @license    __LICENSE__
  */
 
-import * as fusion from './dep.js';
-export * from './dep.js';
-
-export default fusion;
+export default class NoDeco {
+  hello() {
+    return 'Hello';
+  }
+}

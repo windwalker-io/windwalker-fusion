@@ -60,19 +60,26 @@ declare namespace Fusion {
   }
 
   export const watch: WatchMethod;
-  export const cssTask: taskProcessor<CssOptions>;
+  export const copy: taskProcessor<CssOptions>;
+  export function livereload(source: string | Array<string>, options: any): Promise<NodeJS.ReadWriteStream>;
+  export function waitAllEnded(...args: Array<Promise<NodeJS.ReadWriteStream>>): Promise<NodeJS.ReadWriteStream[]>;
+  export function waitFirstEnded(...args: Array<Promise<NodeJS.ReadWriteStream>>): Promise<NodeJS.ReadWriteStream>;
+
+  export const css: taskProcessor<CssOptions>;
   export const CssProcessor: Processor<CssOptions>;
-  export const sassTask: taskProcessor<CssPreProcessorOptions>;
+  export const sass: taskProcessor<CssPreProcessorOptions>;
   export const SassProcessor: Processor<CssPreProcessorOptions>;
-  export const jsTask: taskProcessor<JsOptions>;
+  export const js: taskProcessor<JsOptions>;
   export const JsProcessor: Processor<JsOptions>;
-  export const babelTask: taskProcessor<BabelOptions>;
+  export const babel: taskProcessor<BabelOptions>;
   export const BabelProcessor: Processor<BabelOptions>;
-  export const tsTask: taskProcessor<TsOptions>;
+  export const module: taskProcessor<BabelOptions>;
+  export const ModuleProcessor: Processor<BabelOptions>;
+  export const ts: taskProcessor<TsOptions>;
   export const TsProcessor: Processor<TsOptions>;
-  export const webpackTask: taskProcessor<WebpackOptions>;
+  export const webpack: taskProcessor<WebpackOptions>;
   export const WebpackProcessor: Processor<WebpackOptions>;
-  export const vueTask: taskProcessor<VueOptions>;
+  export const vue: taskProcessor<VueOptions>;
   export const VueProcessor: Processor<VueOptions>;
 }
 

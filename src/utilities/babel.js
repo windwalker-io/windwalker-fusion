@@ -11,7 +11,8 @@ export function babelBasicOptions() {
   options.addPreset(
     '@babel/preset-env',
     {
-      targets: 'last 3 version, safari 5, ie 10, not dead'
+      targets: 'last 3 version, safari 5, ie 10, not dead',
+      modules: false
     }
   );
   options.addPlugin('@babel/plugin-proposal-decorators', { decoratorsBeforeExport: true });
