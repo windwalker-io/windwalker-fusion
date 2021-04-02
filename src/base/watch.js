@@ -9,7 +9,7 @@ import gulp from 'gulp';
 import { cliInput } from '../utilities/cli.js';
 import EventEmitter from 'events';
 
-const FUNC_REGEX = /at\s{1}(?<func>\w+)\s{1}\([\W\w]+?\)/g;
+const FUNC_REGEX = /at\s{1}(?<func>[\w\.]+)\s{1}\([\W\w]+?\)/g;
 
 export const watching = {
   tasks: [],
