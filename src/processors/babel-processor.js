@@ -50,7 +50,7 @@ export default class BabelProcessor extends JsProcessor {
     }
 
     if (options.module) {
-      babelOptions.options.presets[0][1].module = true;
+      babelOptions.options.presets[0][1].modules = options.module;
     }
     
     if (options.targets) {
