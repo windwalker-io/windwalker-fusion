@@ -36,7 +36,7 @@ export default class BabelProcessor extends JsProcessor {
 
     switch (options.module) {
       case 'umd':
-        babelOptions.addPlugin('@babel/plugin-transform-modules-umd');
+        // babelOptions.addPlugin('@babel/plugin-transform-modules-umd');
         break;
 
       case 'amd':
@@ -45,7 +45,7 @@ export default class BabelProcessor extends JsProcessor {
 
       case 'systemjs':
       case true:
-        babelOptions.addPlugin('@babel/plugin-transform-modules-systemjs');
+        // babelOptions.addPlugin('@babel/plugin-transform-modules-systemjs');
         break;
     }
 
