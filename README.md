@@ -33,3 +33,15 @@ fusion.task('main', function () {
 
 fusion.default(['main']);
 ```
+
+package.json
+
+```json
+"scripts": {
+    "build": "cross-env node_modules/.bin/gulp --gulpfile=fusionfile.mjs",
+    "build:dev": "cross-env NODE_ENV=development node_modules/.bin/gulp --gulpfile=fusionfile.mjs",
+    "build:prod": "cross-env NODE_ENV=production node_modules/.bin/gulp --gulpfile=fusionfile.mjs",
+    "watch": "cross-env NODE_ENV=development node_modules/.bin/gulp --gulpfile=fusionfile.mjs --watch",
+    "watch:reload": "cross-env NODE_ENV=development node_modules/.bin/gulp --gulpfile=fusionfile.mjs --watch --livereload"
+},
+```
