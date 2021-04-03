@@ -22,7 +22,7 @@ export default async function css() {
 }
 
 export async function js() {
-  fusion.watch(['./src/js/**/*.css']);
+  fusion.watch(['./src/js/**/*.js']);
 
   fusion.js('./src/js/**/*.js', './dest/js/simple/');
   fusion.js('./src/js/**/*.js', './dest/js/simple/merged.js', { minify: 'same_file' });
@@ -31,6 +31,12 @@ export async function js() {
     './dest/js/simple/merged2.js'
   );
   // sass('./src/scss/**/*.scss', './dest/css/scss/');
+}
+
+export async function jsProd() {
+  fusion.watch(['./src/js/**/*.js']);
+
+  fusion.js('./src/js/bar.js', './dest/js/prod/bar.js');
 }
 
 export async function babel() {

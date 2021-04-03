@@ -18,3 +18,6 @@ export class Foo {
 function decorator(value) {
   return () => value;
 }
+
+// Test toplevel await
+const bar = await import('./bar');

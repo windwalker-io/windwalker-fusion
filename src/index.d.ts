@@ -1,5 +1,7 @@
-import { WatchMethod } from 'gulp';
+import { DestMethod, SrcMethod, WatchMethod, lastRun as lr } from 'gulp';
+import { Gulp } from 'gulp';
 import { Settings } from 'gulp-typescript';
+import * as vfs from 'vinyl-fs';
 import { WebpackOptionsNormalized } from 'webpack/types';
 
 declare namespace Fusion {
@@ -43,6 +45,7 @@ declare namespace Fusion {
     targets?: string;
     babel?: BabelOptions;
     module?: string | 'systemjs' | 'umd' | 'amd';
+    version?: boolean | string
   }
 
   export interface ModuleOptions extends BabelOptions {
@@ -63,7 +66,11 @@ declare namespace Fusion {
     root?: string;
   }
 
+  export const src: SrcMethod;
+  export const dest: DestMethod;
+  export const symlink: typeof vfs.symlink;
   export const watch: WatchMethod;
+  export const lastRun: typeof lr;
   export const copy: taskProcessor<CssOptions>;
   export function livereload(source: string | Array<string>, options: any): Promise<NodeJS.ReadWriteStream>;
   export function waitAllEnded(...args: Array<Promise<NodeJS.ReadWriteStream>>): Promise<NodeJS.ReadWriteStream[]>;

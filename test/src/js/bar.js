@@ -14,3 +14,8 @@ const yoo = {
 };
 
 export const bar = `Hello ${yoo?.goo?.hoo}`;
+
+// Test toplevel await
+const foo = await import('./foo');
+
+console.log(foo);
