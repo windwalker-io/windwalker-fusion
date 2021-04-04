@@ -16,8 +16,6 @@ export const watching = {
   start: false
 };
 
-const tasksMap = new WeakMap();
-
 export function watch(glob, opt, fn) {
   if (
     (typeof opt === 'object' && fn == null)
@@ -37,14 +35,6 @@ export function watch(glob, opt, fn) {
 
     return new EventEmitter();
   }
-
-  const task = fn || opt;
-
-  if (tasksMap[task]) {
-    return new EventEmitter();
-  }
-
-  tasksMap[task] = true;
 
   return gulp.watch(glob, opt, fn);
 }
