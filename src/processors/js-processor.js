@@ -21,9 +21,10 @@ import Processor from './processor.js';
 import crypto from 'crypto';
 
 // const uglify = gu.default;
-let currentVersion;
 
 export default class JsProcessor extends Processor {
+  currentVersion;
+
   async prepareOptions(options = {}) {
     return merge(
       {},
@@ -61,7 +62,7 @@ export default class JsProcessor extends Processor {
       .pipe(terserTask())
       .pipe(rename({ suffix: '.min' }))
       .pipeIf(options.minify === MinifyOption.SEPARATE_FILE, () => {
-          this.pipe(toDest(dest.path));;
+        this.pipe(toDest(dest.path));;
       });
   }
 
@@ -111,27 +112,26 @@ export default class JsProcessor extends Processor {
 
     if (uri.endsWith('.js') || uri.endsWith('.mjs')) {
       if (uri.includes('?')) {
-        uri += '&' + getVersion(version);
+        uri += '&' + this.getVersion(version);
       } else {
-        uri += '?' + getVersion(version);
+        uri += '?' + this.getVersion(version);
       }
     }
 
     return uri;
   }
-}
 
-function getVersion(version) {
-  if (version === true || !version) {
-    if (!currentVersion) {
-      currentVersion = crypto.randomBytes(12).toString('hex');
+  getVersion(version) {
+    if (version === true || !version) {
+      if (!this.currentVersion) {
+        this.currentVersion = crypto.randomBytes(12).toString('hex');
+      }
+
+      return this.currentVersion;
     }
 
-
-    return currentVersion;
+    return version;
   }
-
-  return version;
 }
 
 export function terserTask() {
