@@ -42,6 +42,8 @@
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.2.1",
+    "@babel/plugin-proposal-decorators": "^7.22.10",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@babel/preset-env": "^7.2.0",
     "babel-loader": "^8.0.4",
     "css-loader": "^2.0.1",
@@ -55,5 +57,9 @@
     "vue-template-compiler": "^2.5.21",
     "webpack-comment-remover-loader": "^0.0.3",
     "webpack-stream": "^5.2.1"
+  },
+  "resolutions": {
+    "node-sass": "npm:sass@^1.0.0",
+    "graceful-fs": "^4.2.11"
   }
 }
